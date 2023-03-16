@@ -22,5 +22,22 @@
     // выходящим за границы документа
     style.innerHTML += '#content p {overflow: scroll}';
 
+    // Цвет ссылок
+    style.innerHTML += '#page a {color: #81BBF2;}';
+    style.innerHTML += '#page a:visited {color: #81f2a9;}';
+
+    // Цвет текста
+    style.innerHTML += '#page {color: white;}';
+
+    // Фон страницы
+    style.innerHTML += '#page {background-color: black;}';
+
+    // Оформление блоков кода
+    style.innerHTML += 'pre {background-color: #171717;}';
+    style.innerHTML += 'pre {border: 1pt solid #222222;}';
+
+    // Оформление кода в тексте
+    style.innerHTML += '.backtick {background-color: #333333;}';
+
     document.body.appendChild(style);
 })();
