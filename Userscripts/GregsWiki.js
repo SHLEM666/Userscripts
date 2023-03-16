@@ -34,10 +34,13 @@
 
     // Оформление блоков кода
     style.innerHTML += 'pre {background-color: #171717;}';
-    style.innerHTML += 'pre {border: 1pt solid #222222;}';
+    style.innerHTML += 'pre {border: 1pt solid #333333;}';
 
     // Оформление кода в тексте
     style.innerHTML += '.backtick {background-color: #333333;}';
+
+    // Оформление блоков содержания статей
+    style.innerHTML += 'div.table-of-contents {border: 1px solid #333333; color: white; background-color: #171717;}';
 
     document.body.appendChild(style);
 })();
