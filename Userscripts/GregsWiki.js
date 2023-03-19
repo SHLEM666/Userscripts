@@ -50,11 +50,11 @@
     for (var i = 0; i < len_i; i++) {
     if (blocks[i].id == "") {
         var len_j = blocks[i].childNodes.length;
-           for (j = 0; j < len_j; j++) {
+           for (var j = 0; j < len_j; j++) {
                if (j % 2 != 0) { // Каждый нечетный
                   blocks[i].childNodes[j].nodeValue = "  " + blocks[i].childNodes[j].nodeValue;
                };
            };
        };
-    };
+   };
 })();
