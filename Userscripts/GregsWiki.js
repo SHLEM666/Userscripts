@@ -26,7 +26,7 @@
 
     // Цвет ссылок
     style.innerHTML += '#page a {color: #81BBF2;}';
-    style.innerHTML += '#page a:visited {color: #81f2a9;}';
+    style.innerHTML += '#page a:visited {color: #eb81f2;}';
 
     // Цвет текста
     style.innerHTML += '#page {color: white;}';
@@ -39,16 +39,20 @@
     style.innerHTML += 'pre {border: 1pt solid #333333;}';
     style.innerHTML += 'pre {padding: 0pt;}';
 
+    // Оформление блоков хитро....анных блоков кода
+    style.innerHTML += 'div.codearea pre {color: white;}';
+    style.innerHTML += 'div.codearea pre span.ID {color: white;}';
+    style.innerHTML += 'div.codearea pre span.String {color: #81BBF2;}';
+
     // Оформление кода в тексте
     style.innerHTML += '.backtick {background-color: #333333;}';
 
     // Оформление блоков содержания статей
     style.innerHTML += 'div.table-of-contents {border: 1px solid #333333; color: white; background-color: #171717;}';
 
-
     document.body.appendChild(style);
 
-    // Попеременное подсвечивание строк в блоках кода
+    // Добавляем отступы в блоках кода
     var blocks = document.getElementsByTagName("pre");
     var elem;
     var flag;
@@ -60,6 +64,7 @@
             for (var j = 0; j < len_j; j++) {
                 if (blocks[i].childNodes[j].nodeType == 1) {
                     elem = document.createElement('div');
+                    //elem.className = "qwerty";
                     elem.innerHTML = "  " + blocks[i].childNodes[j+1].nodeValue;
                     elem.style.padding = "2pt 5pt";
                     elem.style.lineHeight = "18pt";
@@ -75,4 +80,6 @@
             };
         };
     };
+
+    // Попеременное подсвечивание строк в блоках кода
 })();
