@@ -51,15 +51,16 @@
     // Попеременное подсвечивание строк в блоках кода
     var blocks = document.getElementsByTagName("pre");
     var elem;
-    var flag = false;
+    var flag;
     var len_i = blocks.length;
     for (var i = 0; i < len_i; i++) {
         if (blocks[i].id == "") {
+            flag = false;
             var len_j = blocks[i].childNodes.length;
             for (var j = 0; j < len_j; j++) {
                 if (blocks[i].childNodes[j].nodeType == 1) {
                     elem = document.createElement('div');
-                    elem.innerHTML = blocks[i].childNodes[j+1].nodeValue;
+                    elem.innerHTML = "  " + blocks[i].childNodes[j+1].nodeValue;
                     elem.style.padding = "2pt 5pt";
                     elem.style.lineHeight = "18pt";
                     if (flag) {
