@@ -48,13 +48,13 @@
     var blocks = document.getElementsByTagName("pre");
     var len_i = blocks.length;
     for (var i = 0; i < len_i; i++) {
-    if (blocks[i].id == "") {
-        var len_j = blocks[i].childNodes.length;
-           for (var j = 0; j < len_j; j++) {
-               if (j % 2 != 0) { // Каждый нечетный
-                  blocks[i].childNodes[j].nodeValue = "  " + blocks[i].childNodes[j].nodeValue;
-               };
-           };
-       };
-   };
+        if (blocks[i].id == "") {
+            var len_j = blocks[i].childNodes.length;
+            for (var j = 0; j < len_j; j++) {
+                if (j % 2 != 0) { // Каждый нечетный
+                    blocks[i].childNodes[j].nodeValue = "  " + blocks[i].childNodes[j].nodeValue;
+                };
+            };
+        };
+    };
 })();
