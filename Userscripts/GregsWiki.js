@@ -51,8 +51,8 @@
     style.innerHTML += 'div.table-of-contents {border: 1px solid #333333; color: white; background-color: #171717;}';
 
     document.body.appendChild(style);
-
-    // Добавляем отступы в блоках кода
+    
+    // Попеременное подсвечивание строк в блоках кода
     var blocks = document.getElementsByTagName("pre");
     var elem;
     var flag;
@@ -64,7 +64,6 @@
             for (var j = 0; j < len_j; j++) {
                 if (blocks[i].childNodes[j].nodeType == 1) {
                     elem = document.createElement('div');
-                    //elem.className = "qwerty";
                     elem.innerHTML = "  " + blocks[i].childNodes[j+1].nodeValue;
                     elem.style.padding = "2pt 5pt";
                     elem.style.lineHeight = "18pt";
@@ -80,6 +79,4 @@
             };
         };
     };
-
-    // Попеременное подсвечивание строк в блоках кода
 })();
