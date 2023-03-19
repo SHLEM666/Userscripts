@@ -16,11 +16,11 @@
     var style = document.createElement('style');
 
     // Добавляем скролл к контейнеру локаци
-    style.innerHTML += '#locationline {overflow: scroll}';
+    style.innerHTML += '#locationline {overflow: auto}';
 
     // Добавляем скролл к абзацам с контентом
     // выходящим за границы документа
-    style.innerHTML += '#content p {overflow: scroll}';
+    style.innerHTML += '#content p {overflow: auto}';
 
     // Цвет ссылок
     style.innerHTML += '#page a {color: #81BBF2;}';
