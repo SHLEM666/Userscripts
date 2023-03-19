@@ -43,4 +43,18 @@
     style.innerHTML += 'div.table-of-contents {border: 1px solid #333333; color: white; background-color: #171717;}';
 
     document.body.appendChild(style);
+    
+    // Добавляем отступы в блоках кода
+    var blocks = document.getElementsByTagName("pre");
+    var len_i = blocks.length;
+    for (var i = 0; i < len_i; i++) {
+    if (blocks[i].id == "") {
+        var len_j = blocks[i].childNodes.length;
+           for (j = 0; j < len_j; j++) {
+               if (j % 2 != 0) { // Каждый нечетный
+                  blocks[i].childNodes[j].nodeValue = "  " + blocks[i].childNodes[j].nodeValue;
+               };
+           };
+       };
+    };
 })();
