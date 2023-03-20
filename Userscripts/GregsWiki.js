@@ -60,15 +60,15 @@
     var blocks = document.getElementsByTagName("pre");
     var elem;
     var flag;
-    var len_i = blocks.length;
     // Перебор блоков
+    var len_i = blocks.length;
     for (var i = 0; i < len_i; i++) {
-        flag = false;
-        var len_j = blocks[i].childNodes.length;
-        // Перебор элементов внутри блока
-        for (var j = 0; j < len_j; j++) {
-            // Если текущий блок - обычный, не хитро....анный
-            if (blocks[i].id == "") {
+        // Если текущий блок - обычный, не хитро....анный
+        if (blocks[i].id == "") {
+            flag = false;
+            // Перебор элементов внутри блока
+            var len_j = blocks[i].childNodes.length;
+            for (var j = 0; j < len_j; j++) {
                 // Если текущий узел - ELEMENT_NODE
                 if (blocks[i].childNodes[j].nodeType == 1) {
                     // Оборачивание следующиего(текстового) узла
