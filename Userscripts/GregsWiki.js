@@ -34,15 +34,19 @@
     // Фон страницы
     style.innerHTML += '#page {background-color: black;}';
 
-    // Оформление блоков кода
+    // Оформление обычных блоков кода
     style.innerHTML += 'pre {background-color: #171717;}';
     style.innerHTML += 'pre {border: 1pt solid #333333;}';
     style.innerHTML += 'pre {padding: 0pt;}';
 
     // Оформление блоков хитро....анных блоков кода
-    style.innerHTML += 'div.codearea pre {color: white;}';
+    style.innerHTML += 'div.codearea {background-color: #333333; border: 1pt solid #333333; line-height: 18pt;}';
+    style.innerHTML += 'div.codearea pre {color: white; padding: 0px;}';
     style.innerHTML += 'div.codearea pre span.ID {color: white;}';
     style.innerHTML += 'div.codearea pre span.String {color: #81BBF2;}';
+    style.innerHTML += 'div.codearea pre .line {display: inline-block; width: 100%; padding: 2pt 0pt;}';
+    style.innerHTML += 'div.codearea pre .line:nth-child(2n) {background-color: #333333;}';
+
 
     // Оформление кода в тексте
     style.innerHTML += '.backtick {background-color: #333333;}';
@@ -51,28 +55,34 @@
     style.innerHTML += 'div.table-of-contents {border: 1px solid #333333; color: white; background-color: #171717;}';
 
     document.body.appendChild(style);
-    
+
     // Попеременное подсвечивание строк в блоках кода
     var blocks = document.getElementsByTagName("pre");
     var elem;
     var flag;
     var len_i = blocks.length;
+    // Перебор блоков
     for (var i = 0; i < len_i; i++) {
-        if (blocks[i].id == "") {
-            flag = false;
-            var len_j = blocks[i].childNodes.length;
-            for (var j = 0; j < len_j; j++) {
+        flag = false;
+        var len_j = blocks[i].childNodes.length;
+        // Перебор элементов внутри блока
+        for (var j = 0; j < len_j; j++) {
+            // Если текущий блок - обычный, не хитро....анный
+            if (blocks[i].id == "") {
+                // Если текущий узел - ELEMENT_NODE
                 if (blocks[i].childNodes[j].nodeType == 1) {
+                    // Оборачивание следующиего(текстового) узла
                     elem = document.createElement('div');
                     elem.innerHTML = "  " + blocks[i].childNodes[j+1].nodeValue;
                     elem.style.padding = "2pt 5pt";
                     elem.style.lineHeight = "18pt";
+                    // Полосатость
                     if (flag) {
                         elem.style.backgroundColor = "#333333";
                         flag = false;
                     } else {
                         flag = true;
-                    }
+                    };
                     blocks[i].childNodes[j+1].replaceWith(elem);
                     j++;
                 };
