@@ -27,6 +27,9 @@
     // Цвет текста и фона страницы
     style.innerHTML += 'body {color: white; background-color: black;}';
 
+    // Убираем рамку по краям страницы
+    style.innerHTML += 'body {border: none;}';
+
     // Оформление обычных блоков кода
     style.innerHTML += 'div.example, pre.example {background-color: #171717;}';
     style.innerHTML += 'div.example, pre.example {border: 1pt solid #333333;}';
