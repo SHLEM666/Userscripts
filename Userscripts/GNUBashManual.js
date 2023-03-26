@@ -25,16 +25,16 @@
     style.innerHTML += 'a[href]:visited {color: #eb81f2;}';
 
     // Цвет текста и фона страницы
-    style.innerHTML += 'body {color: white; background-color: black;}';
+    style.innerHTML += 'html, body {color: white; background-color: black;}';
 
-    // Убираем рамку по краям страницы
-    style.innerHTML += 'body {border: none;}';
+    // Убираем рамку страницы и отступы
+    style.innerHTML += 'body {border: none; max-width: none; width:92%; margin: 4%; padding: 0px}';
 
     // Оформление обычных блоков кода
-    style.innerHTML += 'div.example, pre.example {background-color: #171717;}';
-    style.innerHTML += 'div.example, pre.example {border: 1pt solid #333333;}';
+    style.innerHTML += 'div.example, pre.example {background-color: #171717; border: 1pt solid #333333;}';
 
     // Оформление кода в тексте
+    style.innerHTML += 'p {overflow: scroll;}';
     style.innerHTML += 'p.code, span code {background-color: #333333; color: white;}';
 
     document.body.appendChild(style);
