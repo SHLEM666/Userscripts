@@ -35,7 +35,7 @@
 
     // Оформление кода в тексте
     style.innerHTML += 'p {overflow: scroll;}';
-    style.innerHTML += 'p.code, span code {background-color: #333333; color: white;}';
+    style.innerHTML += 'p code, span code, samp {background-color: #333333; color: white;}';
 
     document.body.appendChild(style);
 
