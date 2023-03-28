@@ -35,8 +35,8 @@
     style.innerHTML += 'body {border: none; max-width: none; width:92%; margin: 4%; padding: 0px}';
 
     // Оформление блоков кода
-    style.innerHTML += 'div.example {background-color: black; border: none; margin: 1.5em 0em; padding: 0px;}';
-    style.innerHTML += 'div.example > pre.example {background-color: black; border: 1pt solid #333333; padding: 0px; word-wrap: break-word; white-space: pre-wrap;}';
+    style.innerHTML += 'div.example {background-color: black; border: 1pt solid #333333; margin: 1.5em 0em; padding: 0px;}';
+    style.innerHTML += 'div.example > pre.example {background-color: black; padding: 0px; word-wrap: break-word; white-space: pre-wrap;}';
     style.innerHTML += 'div.example > pre.example div {padding: 0.4em; background-color: #191919;}';
     style.innerHTML += 'div.example > pre.example div:nth-child(2n) {background-color: #333333;}';
 
