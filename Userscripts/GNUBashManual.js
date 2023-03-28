@@ -36,12 +36,12 @@
     
     // Оформление блоков кода
     style.innerHTML += 'div.example {background-color: black; border: none; padding: 0px;}';
-    style.innerHTML += 'div.example > pre.example {background-color: black; border: 1pt solid #333333; padding: 0px; word-wrap: break-word; white-space: pre-wrap;;}';
+    style.innerHTML += 'div.example > pre.example {background-color: black; border: 1pt solid #333333; padding: 0px; word-wrap: break-word; white-space: pre-wrap;}';
     style.innerHTML += 'div.example > pre.example div {padding: 0.4em 0px 0.4em 0.4em;}';
     style.innerHTML += 'div.example > pre.example div:nth-child(2n) {background-color: #333333;}';
 
     // Оформление кода в тексте
-    style.innerHTML += 'p {overflow: scroll;}';
+    style.innerHTML += 'p {word-wrap: break-word;}';
     style.innerHTML += 'p code, span code, samp {background-color: #333333; color: white;}';
 
     document.body.appendChild(style);
