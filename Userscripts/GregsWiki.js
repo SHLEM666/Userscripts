@@ -38,6 +38,8 @@
     style.innerHTML += 'pre {background-color: #171717;}';
     style.innerHTML += 'pre {border: 1pt solid #333333;}';
     style.innerHTML += 'pre {padding: 0pt;}';
+    style.innerHTML += 'pre div:nth-child(4n) {background-color: #333333;}';
+    style.innerHTML += 'pre > div {padding: 2pt 5pt; line-height: 18pt}';
 
     // Оформление блоков хитро....анных блоков кода
     style.innerHTML += 'div.codearea {background-color: #333333; border: 1pt solid #333333; line-height: 18pt;}';
@@ -55,35 +57,21 @@
 
     document.body.appendChild(style);
 
-    // Попеременное подсвечивание строк в блоках кода
+    // Оборачивание текстовых узлов(строк) обычных блоков кода в DIV
     var blocks = document.getElementsByTagName("pre");
     var elem;
-    var flag;
     // Перебор блоков
-    var len_i = blocks.length;
-    for (var i = 0; i < len_i; i++) {
+    for (var block of blocks) {
         // Если текущий блок - обычный, не хитро....анный
-        if (blocks[i].id == "") {
-            flag = false;
+        if (block.id == "") {
             // Перебор элементов внутри блока
-            var len_j = blocks[i].childNodes.length;
-            for (var j = 0; j < len_j; j++) {
-                // Если текущий узел - ELEMENT_NODE
-                if (blocks[i].childNodes[j].nodeType == 1) {
-                    // Оборачивание следующиего(текстового) узла
+            for (var node of block.childNodes) {
+                // Если текущий узел - TEXT_NODE
+                if (node.nodeType == 3) {
+                    // Оборачивание узел в DIV
                     elem = document.createElement('div');
-                    elem.innerHTML = "  " + blocks[i].childNodes[j+1].nodeValue;
-                    elem.style.padding = "2pt 5pt";
-                    elem.style.lineHeight = "18pt";
-                    // Полосатость
-                    if (flag) {
-                        elem.style.backgroundColor = "#333333";
-                        flag = false;
-                    } else {
-                        flag = true;
-                    };
-                    blocks[i].childNodes[j+1].replaceWith(elem);
-                    j++;
+                    elem.innerHTML = "  " + node.nodeValue;
+                    node.replaceWith(elem);
                 };
             };
         };
