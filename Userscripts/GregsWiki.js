@@ -88,4 +88,12 @@
             };
         };
     };
+    
+    // Горизонтальная прокрутка таблиц
+    var tables = document.getElementsByTagName("table");
+    for (elem of tables) {
+        if (elem.parentElement.tagName == "DIV") {
+            elem.parentElement.style.overflow = "scroll";
+        };
+    };
 })();
