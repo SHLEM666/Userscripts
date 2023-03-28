@@ -8,6 +8,10 @@
 // @match        http://gnu.org/software/bash/manual/*
 // @match        https://www.gnu.org/software/bash/manual/*
 // @match        https://gnu.org/software/bash/manual/*
+// @match        http://www.gnu.org/savannah-checkouts/gnu/bash/manual/*
+// @match        http://gnu.org/savannah-checkouts/gnu/bash/manual/*
+// @match        https://www.gnu.org/savannah-checkouts/gnu/bash/manual/*
+// @match        https://gnu.org/savannah-checkouts/gnu/bash/manual/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=gnu.org
 // @grant        none
 // ==/UserScript==
