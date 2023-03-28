@@ -22,7 +22,7 @@
     var style = document.createElement('style');
 
     // Цвет заголовков
-    style.innerHTML += 'h1, h2, h3, h4, .header {color: white;}';
+    style.innerHTML += 'h1, h2, h3, h4, h5, h6, dt, .header {color: white;}';
 
     // Цвет ссылок
     style.innerHTML += 'a[href], a[href]:link {color: #81BBF2;}';
@@ -33,11 +33,11 @@
 
     // Убираем рамку страницы и отступы
     style.innerHTML += 'body {border: none; max-width: none; width:92%; margin: 4%; padding: 0px}';
-    
+
     // Оформление блоков кода
-    style.innerHTML += 'div.example {background-color: black; border: none; padding: 0px;}';
+    style.innerHTML += 'div.example {background-color: black; border: none; margin: 0px; padding: 0px;}';
     style.innerHTML += 'div.example > pre.example {background-color: black; border: 1pt solid #333333; padding: 0px; word-wrap: break-word; white-space: pre-wrap;}';
-    style.innerHTML += 'div.example > pre.example div {padding: 0.4em 0px 0.4em 0.4em;}';
+    style.innerHTML += 'div.example > pre.example div {padding: 0.4em; background-color: #111111;}';
     style.innerHTML += 'div.example > pre.example div:nth-child(2n) {background-color: #333333;}';
 
     // Оформление кода в тексте
@@ -56,7 +56,7 @@
             lines = pre.innerHTML.split("\n");
             for (var line of lines) {
                 if (line != "") {
-                    newHTML += '<div calss="my_line">    ' + line + '</div>'
+                    newHTML += '<div calss="my_line">  ' + line + '</div>'
                 };
             };
             pre.innerHTML = newHTML;
