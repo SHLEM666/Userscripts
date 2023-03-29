@@ -50,7 +50,7 @@
     style.innerHTML += 'div.codearea pre .line:nth-child(2n) {background-color: #333333;}';
 
     // Оформление кода в тексте
-    style.innerHTML += '.backtick, #content > p > em {background-color: #333333;}';
+    style.innerHTML += '.backtick, #content > p > em, #content > p > tt {background-color: #333333;}';
 
     // Оформление блоков содержания статей
     style.innerHTML += 'div.table-of-contents {border: 1px solid #333333; color: white; background-color: #171717;}';
@@ -76,7 +76,7 @@
             };
         };
     };
-    
+
     // Горизонтальная прокрутка таблиц
     var tables = document.getElementsByTagName("table");
     for (var table of tables) {
