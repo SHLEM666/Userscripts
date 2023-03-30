@@ -48,6 +48,7 @@
     style.innerHTML += 'div.codearea pre span.ID {color: white;}';
     style.innerHTML += 'div.codearea pre span.String {color: #81BBF2;}';
     style.innerHTML += 'div.codearea pre span.Comment {color: #00bb00;}';
+    style.innerHTML += 'div.codearea pre span.ResWord {color: #dd0000;}';
     style.innerHTML += 'div.codearea pre .line {display: inline-block; width: 100%; padding: 2pt 0pt;}';
     style.innerHTML += 'div.codearea pre .line:nth-child(2n) {background-color: #333333;}';
 
