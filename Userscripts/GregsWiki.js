@@ -10,6 +10,7 @@
 // @match        https://mywiki.wooledge.org/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=wooledge.org
 // @grant        none
+// @require      https://raw.githubusercontent.com/SHLEM666/Web/main/Userscripts/GregsWiki.js
 // ==/UserScript==
 
 (function() {
