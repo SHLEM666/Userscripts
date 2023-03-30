@@ -8,7 +8,7 @@
 // @match        http://mathprofi.ru/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=mathprofi.ru
 // @grant        none
-// @require      https://raw.githubusercontent.com/SHLEM666/Web/main/Userscripts/Mathprofi.js
+// @require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/Mathprofi.js
 // ==/UserScript==
 
 (function() {
