@@ -7,6 +7,7 @@
 // @match        https://calcme.com/a
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=calcme.com
 // @grant        none
+// @require      https://raw.githubusercontent.com/SHLEM666/Web/main/Userscripts/CalcMe.js
 // ==/UserScript==
 
 (function (window) {
