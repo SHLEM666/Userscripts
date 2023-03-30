@@ -4,14 +4,7 @@
 // @version      0.1
 // @description  try to take over the world!
 // @author       You
-// @match        http://www.gnu.org/software/bash/manual/*
-// @match        http://gnu.org/software/bash/manual/*
-// @match        https://www.gnu.org/software/bash/manual/*
-// @match        https://gnu.org/software/bash/manual/*
-// @match        http://www.gnu.org/savannah-checkouts/gnu/bash/manual/*
-// @match        http://gnu.org/savannah-checkouts/gnu/bash/manual/*
-// @match        https://www.gnu.org/savannah-checkouts/gnu/bash/manual/*
-// @match        https://gnu.org/savannah-checkouts/gnu/bash/manual/*
+// @match        https://www.gnu.org/*/bash/manual/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=gnu.org
 // @grant        none
 // @require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/GNUBashManual.js
