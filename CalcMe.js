@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  try to take over the world!
 // @author       You
-// @match        https://calcme.com/a
+// @match        *.calcme.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=calcme.com
 // @grant        none
 // @require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/CalcMe.js
