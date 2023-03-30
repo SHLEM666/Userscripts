@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  try to take over the world!
 // @author       You
-// @match        https://www.gnu.org/*/bash/manual/*
+// @match        *.gnu.org/*/bash/manual/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=gnu.org
 // @grant        none
 // @require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/GNUBashManual.js
