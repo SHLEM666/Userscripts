@@ -14,7 +14,7 @@
 // @match        https://gnu.org/savannah-checkouts/gnu/bash/manual/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=gnu.org
 // @grant        none
-// @require      https://raw.githubusercontent.com/SHLEM666/Web/main/Userscripts/GNUBashManual.js
+// @require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/GNUBashManual.js
 // ==/UserScript==
 
 (function() {
