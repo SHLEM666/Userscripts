@@ -4,10 +4,7 @@
 // @version      0.1
 // @description  try to take over the world!
 // @author       You
-// @match        http://www.mywiki.wooledge.org/*
-// @match        http://mywiki.wooledge.org/*
-// @match        https://www.mywiki.wooledge.org/*
-// @match        https://mywiki.wooledge.org/*
+// @match        *mywiki.wooledge.org/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=wooledge.org
 // @grant        none
 // @require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/GregsWiki.js
