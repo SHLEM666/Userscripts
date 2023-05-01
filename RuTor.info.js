@@ -7,7 +7,7 @@
 // @match        *.rutor.info/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=rutor.info
 // @grant        none
-// @require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/RuTor.js
+// @require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/RuTor.info.js
 // ==/UserScript==
 
 (function() {
