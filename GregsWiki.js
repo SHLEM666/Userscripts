@@ -15,6 +15,9 @@
 
     var style = document.createElement('style');
 
+    // Увеличиваем размер шрифта
+    style.innerHTML += 'html {font-size: 1.2em;}';
+
     // Добавляем скролл к контейнеру локаци
     style.innerHTML += '#locationline {overflow: auto}';
 
