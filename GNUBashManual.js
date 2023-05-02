@@ -15,6 +15,12 @@
 
     var style = document.createElement('style');
 
+    // Увеличиваем размер шрифта
+    style.innerHTML += 'html {font-size: 1.2em;}';
+
+    // Меняем семейство шрифта
+    style.innerHTML += 'p, pre, li, dt, dd, table, code, address, .settitle, .top, .chapter, .section, .subsection, .subsubsection {font-family: system-ui;}';
+
     // Цвет заголовков
     style.innerHTML += 'h1, h2, h3, h4, h5, h6, dt, .header {color: white;}';
 
