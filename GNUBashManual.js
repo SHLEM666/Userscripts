@@ -16,7 +16,7 @@
     var style = document.createElement('style');
 
     // Увеличиваем размер шрифта
-    style.innerHTML += 'html {font-size: 1.2em;}';
+    style.innerHTML += 'html {font-size: 1.1em;}';
 
     // Меняем семейство шрифта
     style.innerHTML += 'p, pre, li, dt, dd, table, code, address, .settitle, .top, .chapter, .section, .subsection, .subsubsection {font-family: system-ui;}';
