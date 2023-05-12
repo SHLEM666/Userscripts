@@ -73,7 +73,8 @@
                 if (node.nodeType == 3) {
                     // Оборачивание узел в DIV
                     elem = document.createElement('div');
-                    elem.innerHTML = "  " + node.nodeValue;
+                    // Используем метод document.createTextNode чтобы избежать ненужных преобразований частей текста в HTML-элементы
+                    elem.appendChild(document.createTextNode("  " + node.nodeValue));
                     node.replaceWith(elem);
                 };
             };
