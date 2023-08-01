@@ -14,13 +14,13 @@
 
 class Parced_elems {
 
-    constructor(...args) {
-        this.class_names = args;
+    constructor(class_name) {
+        this.class_name = class_name;
         this.refresh();
     }
 
     refresh() {
-        this.items = document.getElementsByClassName(this.class_names);
+        this.items = document.getElementsByClassName(this.class_name);
         this.set_onclick();
     }
 
@@ -30,70 +30,61 @@ class Parced_elems {
             item.addEventListener('click', _this.click_handler);
         });
     }
+
+     spoof_target(orig_elem) {
+        let new_elemw = orig_elem.cloneNode(true);
+        orig_elem.style.display = "none";
+        orig_elem.parentElement.prepend(new_elemw);
+    }
+
+    change_theme() {
+        if (classList(this.items[0]).contains(this.white_theme_class_name)) {
+            this.set_black_theme();
+        } else {
+            this.set_white_theme();
+        }
+    }
 }
 
 class Features extends Parced_elems {
 
-    constructor(class_name_1, class_name_2) {
-        super(class_name_1, class_name_2);
-        this.brake_features_links();
-        this.stop_slideshow(0);
+    constructor(class_name) {
+        super(class_name);
+        this.white_theme_class_name = "feature_theme_white";
     }
 
     refresh() {
-        let slideshow = document.getElementsByClassName(this.class_names[0])[0];
-        this.items = slideshow.getElementsByClassName(this.class_names[1]);
+        this.spoof_target(document.getElementsByClassName("slideshow")[0]);
+        super.refresh();
         this.text_element = this.items[0].getElementsByClassName("feature__title")[0];
-        this.set_onclick();
+        window.onresize = this.correct_width;
     }
 
-    brake_features_links() {
-        setTimeout(()=>{
-            let items = window.pictest.features.items;
-            [].forEach.call(items, function(item) {
-                item.children[0].children[0].children[0].addEventListener("click", (event) => event.preventDefault());
-            });
-        }, 3000);
-    }
-
-    stop_slideshow(slide_number) {
-        document.getElementsByClassName("slideshow__bullets-list")[0].children[slide_number].children[0].click();
-        setTimeout(function run() {
-            document.getElementsByClassName("slideshow__bullets-list")[0].children[slide_number].children[0].click();
-            setTimeout(run, 800);
-            //console.log("stop slideshow")
-        }, 800);
+    correct_width() {
+        window.pictest.features.items[0].parentElement.parentElement.style.width = window.getComputedStyle(document.body).width;
     }
 
     change_text(elem) {
         this.text_element.innerHTML = elem.getElementsByClassName("card_text")[0].value;
     }
 
-    change_theme() {
-        if (classList(this.items[0].children[0].children[0]).contains("feature_theme_white")) {
-            this.set_black_theme();
-        } else {
-            this.set_white_theme();
-        }
-    }
-
     set_black_theme() {
-        classList(this.items[0].children[0].children[0]).remove("feature_theme_white");
-        classList(this.items[0].children[0].children[0]).add("feature_theme_black");
+        classList(this.items[0]).remove("feature_theme_white");
+        classList(this.items[0]).add("feature_theme_black");
     }
 
     set_white_theme() {
-        classList(this.items[0].children[0].children[0]).add("feature_theme_white");
-        classList(this.items[0].children[0].children[0]).remove("feature_theme_black");
+        classList(this.items[0]).add("feature_theme_white");
+        classList(this.items[0]).remove("feature_theme_black");
     }
 
-    click_handler() {
+    click_handler(e) {
+        e.preventDefault();
         window.pictest.features.edit(this);
     }
 
-    // Correct target
     edit(target) {
-        window.pictest.controll_panel.start_edit(target.children[0].children[0], this.build_html());
+        window.pictest.controll_panel.start_edit(target, this.build_html());
     }
 
     build_html() {
@@ -177,18 +168,18 @@ class Superblocks extends Parced_elems {
 
 class Header extends Parced_elems {
 
-    constructor(class_names) {
-        super(class_names);
+    constructor(class_name) {
+        super(class_name);
         this.logo = this.items[0].getElementsByClassName("logo");
         this.menu_services = this.items[0].getElementsByClassName("menu-services");
+        this.white_theme_class_name = "header_theme_white";
     }
 
-    change_theme() {
-        if (classList(this.items[0]).contains("header_theme_white")) {
-            this.set_black_theme();
-        } else {
-            this.set_white_theme();
-        }
+    refresh() {
+        this.spoof_target(document.getElementsByClassName(this.class_name)[0]);
+        super.refresh();
+        this.text_element = this.items[0].getElementsByClassName("feature__title")[0];
+        window.onresize = this.correct_width;
     }
 
     set_black_theme() {
@@ -212,6 +203,10 @@ class Header extends Parced_elems {
         classList(this.menu_services[0]).add("menu-services_theme_white");
         classList(this.menu_services[0]).remove("menu-services_theme_black");
     }
+
+    click_handler(e) {
+        e.preventDefault();
+    }
 }
 
 class Main_feed_button extends Parced_elems {
@@ -219,7 +214,7 @@ class Main_feed_button extends Parced_elems {
     click_handler() {
         setTimeout(()=>{
             window.pictest.refresh();
-        }, 10);
+        }, 100);
     }
 }
 
@@ -257,7 +252,6 @@ class Controll_panel {
 
     insert_symbol(event, symbol) {
         let text_input = event.target.parentElement.getElementsByClassName("card_text")[0];
-        console.log(1);
         text_input.value = text_input.value + symbol;
     }
 
@@ -316,7 +310,7 @@ class Pictest {
         this.refresh();
         this.controll_panel = new Controll_panel();
         this.header = new Header("header");
-        this.features = new Features("slideshow", "slick-slide");
+        this.features = new Features("feature");
         this.main_feed_button = new Main_feed_button("main-feed__button");
     }
 
@@ -336,43 +330,7 @@ class Pictest {
     }
 }
 
-function event_listeners_cathc() {
-    Window.prototype._addEventListener = Window.prototype.addEventListener;
-    Window.prototype.addEventListener = function(a, b, c) {
-        if (c==undefined) c=false;
-        this._addEventListener(a,b,c);
-        if (! this.eventListenerList) this.eventListenerList = {};
-        if (! this.eventListenerList[a]) this.eventListenerList[a] = [];
-        this.eventListenerList[a].push({listener:b,options:c});
-    };
-}
-
-function brake_event_listeners() {
-    setTimeout(function() {
-        try {
-            let event_listener = window.parent.eventListenerList.scroll[0];
-            let name = event_listener.listener.name;
-            //let len = window.parent.eventListenerList.scroll.length;
-            //if (len == 3) {
-            if (name == "g") {
-                //console.log(window.parent.eventListenerList.scroll[0].listener.name);
-                window.parent.removeEventListener("scroll", event_listener.listener, event_listener.useCapture);
-            } else {
-                brake_event_listeners();
-                //location.reload();
-            }
-            //console.log(name);
-        } catch(e) {
-            brake_event_listeners();
-            console.log(e);
-        }
-    }, 200);
-}
-
 (function() {'use strict';
-
-    event_listeners_cathc();
-    brake_event_listeners();
 
     window.onload = function() {
        window.pictest = new Pictest();
@@ -382,5 +340,4 @@ function brake_event_listeners() {
     window.onbeforeunload = function() {
        window.scroll(0, 0);
     }
-
 })();
