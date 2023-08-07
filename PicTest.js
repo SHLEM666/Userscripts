@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PicTest
 // @namespace    http://tampermonkey.net/
-// @version      0.22
+// @version      0.25
 // @description  try to take over the world!
 // @author       SHLEM666
 // @match        https://yandex.ru/company
@@ -15,8 +15,7 @@
 class Parced_element {
 
     set_onclick() {
-        var _this = this;
-        this.item.addEventListener('click', _this.click_handler);
+        this.item.addEventListener('click', this.click_handler);
     }
 
     click_handler(event) {
@@ -35,6 +34,24 @@ class Parced_element {
             change_theme_client.change_theme();
         });
     }
+
+    change_text() {
+        this.text_element.innerHTML = window.pictest.controll_panel.text_element.value;
+    }
+
+    edit() {
+        window.pictest.controll_panel.start_edit(this);
+    }
+
+    build_html() {
+        let base_html = window.pictest.controll_panel.base_html;
+        let target = "// STRING TO REPLACE //";
+        let replacement = `
+  <p class="file_input_lable">Image<br>
+    <input class="file_input" type="file" data-style_property="` + this.image_style_property + `" multiple="false">
+  </p>`;
+        return base_html.replace(target, replacement);
+    }
 }
 
 class Feature extends Parced_element {
@@ -46,6 +63,9 @@ class Feature extends Parced_element {
         this.add_change_theme_clients();
         this.text_element = this.item.getElementsByClassName("feature__title")[0];
         this.image_element = this.item;
+        this.image_style_property_desktop = "--feature-image-desktop";
+        this.image_style_property_tablet = "--feature-image-tablet";
+        this.image_style_property_mobile = "--feature-image-mobile";
         this.set_onclick();
         window.addEventListener('resize', this.correct_width);
     }
@@ -65,13 +85,9 @@ class Feature extends Parced_element {
         window.pictest.feature.item.parentElement.parentElement.style.width = window.getComputedStyle(document.body).width;
     }
 
-    change_theme(elem) {
-        super.change_theme(elem);
+    change_theme() {
+        super.change_theme();
         window.pictest.header.change_theme();
-    }
-
-    change_text() {
-        this.text_element.innerHTML = window.pictest.controll_panel.elem.getElementsByClassName("card_text")[0].value;
     }
 
     click_handler(event) {
@@ -79,85 +95,19 @@ class Feature extends Parced_element {
         window.pictest.feature.edit();
     }
 
-    controll_panel_click_handler(event) {
-        // Button change text
-        if (event.target.className == "feature_button_change_text") {
-            window.pictest.feature.change_text();
-        }
-        // Button change theme
-        if (event.target.className == "feature_change_theme_button") {
-            window.pictest.feature.change_theme(window.pictest.controll_panel.target.item);
-        }
-    }
-
-    edit() {
-        window.pictest.controll_panel.start_edit(this);
-    }
-
     build_html() {
-        return `
-<div class="connroll_panel">
-  <textarea class="card_text" placeholder="Feature text" resi></textarea>
-  <input class="feature_button_change_text" type="button" value="Change text">
-  <input class="insert_symbol_1" type="button" value='" "' title="Insert non-breaking space"><br>
-  <p>
-    <input class="feature_change_theme_button" type="button" value="Change theme">
-  </p>
+        let base_html = window.pictest.controll_panel.base_html;
+        let target = "// STRING TO REPLACE //";
+        let replacement = `
   <p class="file_input_lable">Desktop image<br>
-    <input class="file_input" type="file" data-style_property="feature-image-desktop" multiple="false">
+    <input class="file_input" type="file" data-style_property="` + this.image_style_property_desktop + `" multiple="false">
   </p>
   <p class="file_input_lable">Tablet image<br>
-    <input class="file_input" type="file" data-style_property="feature-image-tablet" multiple="false"></p>
+    <input class="file_input" type="file" data-style_property="` + this.image_style_property_tablet + `" multiple="false"></p>
   <p class="file_input_lable">Mobile image<br>
-    <input class="file_input" type="file" data-style_property="feature-image-mobile" multiple="false">
-  </p>
-
-  <input class="pictest_button_cancle" type="button" value="Close"><br>
-</div>
-<style>
-  .own_created_elems_hidden {
-    display: none;
-  }
-  .connroll_panel_wrapper {
-    background-color: rgba(0,0,0,0.5);
-    position: fixed;
-    left: 0px;
-    right: 0px;
-    top: 0px;
-    bottom: 0px;
-    z-index: 20;
-    text-align: center;
-  }
-  .connroll_panel_wrapper:after {
-    height: 100%;
-    display: inline-block;
-    vertical-align: middle;
-    content: "";
-  }
-  .connroll_panel {
-    background-color: white;
-    text-align: left;
-    padding: 1em;
-    max-width: 98%;
-    max-height: 100%;
-    display: inline-block;
-    vertical-align: middle;
-    border-radius: 0em;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    filter: progid:DXImageTransform.Microsoft.shadow(direction=180, color=#000000, strength=10);
-  }
-  .card_text {
-    width: 97%;
-    height: 50pt;
-    resize: none;
-  }
-  .insert_symbol_1 {
-    position: absolute;
-    margin: 6px 0px 0px 100px;
-  }
-</style>
-`;
+    <input class="file_input" type="file" data-style_property="` + this.image_style_property_mobile + `" multiple="false">
+  </p>`;
+        return base_html.replace(target, replacement);
     }
 }
 
@@ -212,6 +162,8 @@ class Product extends Parced_element {
         this.add_change_theme_clients();
         this.text_element = this.item.getElementsByClassName("product-card__title")[0];
         this.image_element = this.item.children[0];
+        this.image_style_property = "--product-image";
+        this.container_name = "";
         this.set_onclick();
     }
 
@@ -226,99 +178,108 @@ class Product extends Parced_element {
         super.click_handler(event);
         window.pictest.products.edit(this);
     }
+}
 
-    edit() {
-        window.pictest.controll_panel.start_edit(this);
+class Superblock extends Parced_element {
+
+    constructor(elem) {
+        super();
+        this.item = elem;
+        this.change_theme_clients = [];
+        this.add_change_theme_clients();
+        this.text_element = this.item.getElementsByClassName("superblock-card__title")[0].getElementsByTagName("span")[0];
+        this.image_element = this.item.children[0];
+        this.image_style_property_desktop = "--img-desktop";
+        this.image_style_property_mobile = "--img-mobile";
+        this.set_onclick();
     }
 
-    change_text() {
-        this.text_element.innerHTML = window.pictest.controll_panel.elem.getElementsByClassName("card_text")[0].value;
+    add_change_theme_clients() {
+        this.change_theme_clients.push(
+            new Change_theme_client(this.item, "superblock-card_theme_white", "superblock-card_theme_black")
+        );
     }
 
-    controll_panel_click_handler(event) {
-        // Button change text
-        if (event.target.className == "products_button_change_text") {
-            window.pictest.products.change_text(window.pictest.controll_panel.target.item);
-        }
-        // Button change theme
-        if (event.target.className == "products_change_theme_button") {
-            window.pictest.products.change_theme(window.pictest.controll_panel.target.item);
-        }
+    click_handler(event) {
+        super.click_handler(event);
+        window.pictest.superblocks.edit(this);
     }
 
     build_html() {
-        return `
-<div class="connroll_panel">
-  <textarea class="card_text" placeholder="Feature text" resi></textarea>
-  <input class="products_button_change_text" type="button" value="Change text">
-  <input class="insert_symbol_1" type="button" value='" "' title="Insert non-breaking space"><br>
-  <p>
-    <input class="products_change_theme_button" type="button" value="Change theme">
+        let base_html = window.pictest.controll_panel.base_html;
+        let target = "// STRING TO REPLACE //";
+        let replacement = `
+  <p class="file_input_lable">Desktop image<br>
+    <input class="file_input" type="file" data-style_property="` + this.image_style_property_desktop + `" multiple="false">
   </p>
-  <p class="file_input_lable">
-    <input class="file_input" type="file" data-style_property="product-image" multiple="false">
-  </p>
+  <p class="file_input_lable">Mobile image<br>
+    <input class="file_input" type="file" data-style_property="` + this.image_style_property_mobile + `" multiple="false">
+  </p>`;
+        return base_html.replace(target, replacement);
+    }
+}
 
-  <input class="pictest_button_cancle" type="button" value="Close"><br>
-</div>
-<style>
-  .own_created_elems_hidden {
-    display: none;
-  }
-  .connroll_panel_wrapper {
-    background-color: rgba(0,0,0,0.5);
-    position: fixed;
-    left: 0px;
-    right: 0px;
-    top: 0px;
-    bottom: 0px;
-    z-index: 20;
-    text-align: center;
-  }
-  .connroll_panel_wrapper:after {
-    height: 100%;
-    display: inline-block;
-    vertical-align: middle;
-    content: "";
-  }
-  .connroll_panel {
-    background-color: white;
-    text-align: left;
-    padding: 1em;
-    max-width: 98%;
-    max-height: 100%;
-    display: inline-block;
-    vertical-align: middle;
-    border-radius: 0em;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    filter: progid:DXImageTransform.Microsoft.shadow(direction=180, color=#000000, strength=10);
-  }
-  .card_text {
-    width: 97%;
-    height: 50pt;
-    resize: none;
-  }
-  .insert_symbol_1 {
-    position: absolute;
-    margin: 6px 0px 0px 100px;
-  }
-</style>
-`;
+class News_card extends Parced_element {
+
+    constructor(elem) {
+        super();
+        this.item = elem;
+        this.change_theme_clients = [];
+        this.add_change_theme_clients();
+        this.text_element = this.item.getElementsByClassName("news-card__title")[0].getElementsByTagName("span")[0];
+        this.image_element = this.item.getElementsByClassName("news-card__image")[0];
+        this.image_style_property = "--news-image";
+        this.container_name = "";
+        this.set_onclick();
+    }
+}
+
+class News_full_card extends News_card {
+
+    add_change_theme_clients() {
+        this.change_theme_clients.push(
+            new Change_theme_client(this.item, "news-card_theme_white", "news-card_theme_black"),
+            new Change_theme_client(this.item.getElementsByClassName("yandex-service")[0], "yandex-service_color_white", "yandex-service_color_black")
+        );
+    }
+
+    click_handler(event) {
+        super.click_handler(event);
+        window.pictest.news_full_cards.edit(this);
+    }
+}
+
+class News_half_card extends News_card {
+
+    click_handler(event) {
+        super.click_handler(event);
+        window.pictest.news_half_cards.edit(this);
+    }
+
+    build_html() {
+        let base_html = super.build_html();
+        let target = `
+  <p>
+    <input class="button_change_theme" type="button" value="Change theme">
+  </p>`;
+        let replacement = "";
+        return base_html.replace(target, replacement);
     }
 }
 
 class Parsed_elements_container {
 
-    constructor() {
+    constructor(class_obj, class_name) {
+        this._items = document.getElementsByClassName(class_name);
+        this.class_obj = class_obj;
         this.items = this.parse();
     }
 
     parse() {
         let result = [];
-        this._items = document.getElementsByClassName("product-card");
-        [].forEach.call(this._items, function(product) {
-            result.push(new Product(product));
+        let _this = this;
+        [].forEach.call(this._items, function(item) {
+            result.push(new _this.class_obj(item));
         });
         return result;
     }
@@ -326,16 +287,6 @@ class Parsed_elements_container {
     edit(target) {
         let index = [].indexOf.call(this._items, target)
         this.items[index].edit(target);
-    }
-
-    change_text(target) {
-        let index = [].indexOf.call(this._items, target)
-        this.items[index].change_text();
-    }
-
-    change_theme(target) {
-        let index = [].indexOf.call(this._items, target)
-        this.items[index].change_theme();
     }
 }
 
@@ -375,6 +326,60 @@ class Controll_panel {
         this.elem.addEventListener("change", _this.change_handler);
         this.elem.addEventListener("mousedown", _this.mousedown_handler);
         this.hide();
+        this.base_html = `
+<div class="connroll_panel">
+  <textarea class="card_text" placeholder="Feature text" resi></textarea><br>
+  <input class="button_change_text" type="button" value="Change text">
+  <input class="insert_symbol_1" type="button" value='" "' title="Insert non-breaking space">
+  <input class="insert_symbol_2" type="button" value='"&#8629;"' title="Insert new line"><br>
+  <p>
+    <input class="button_change_theme" type="button" value="Change theme">
+  </p>
+  // STRING TO REPLACE //
+
+  <input class="button_cancle" type="button" value="Close"><br>
+</div>
+<style>
+  .own_created_elems_hidden {
+    display: none;
+  }
+  .connroll_panel_wrapper {
+    background-color: rgba(0,0,0,0.5);
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    z-index: 20;
+    text-align: center;
+  }
+  .connroll_panel_wrapper:after {
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    content: "";
+  }
+  .connroll_panel {
+    background-color: white;
+    text-align: left;
+    padding: 1em;
+    max-width: 98%;
+    max-height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 0em;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    filter: progid:DXImageTransform.Microsoft.shadow(direction=180, color=#000000, strength=10);
+  }
+  .card_text {
+    width: 97%;
+    height: 50pt;
+    resize: none;
+  }
+
+</style>
+`;
     }
 
     show() {
@@ -396,23 +401,34 @@ class Controll_panel {
         this.show();
         this.target = target;
         this.elem.innerHTML = target.build_html();
-        this.elem.getElementsByClassName("card_text")[0].value = target.text_element.innerHTML;
-        this.elem.onclick = target.controll_panel_click_handler;
+        this.text_element = this.elem.getElementsByClassName("card_text")[0];
+        this.text_element.value = target.text_element.innerHTML;
     }
 
-    insert_symbol(event, symbol) {
-        let text_input = event.target.parentElement.getElementsByClassName("card_text")[0];
-        text_input.value = text_input.value + symbol;
+    insert_symbol(symbol) {
+        this.target.text_input.value = this.text_element.value + symbol;
     }
 
     click_handler(event) {
         // Button insert symbol 1
         if (event.target.className == "insert_symbol_1") {
-            window.pictest.controll_panel.insert_symbol(event, "&nbsp;");
+            window.pictest.controll_panel.insert_symbol("&nbsp;");
+        }
+         // Button insert symbol 2
+        if (event.target.className == "insert_symbol_2") {
+            window.pictest.controll_panel.insert_symbol("<br>");
         }
         // Button Cancle
-        if (event.target.className == "pictest_button_cancle") {
+        if (event.target.className == "button_cancle") {
             window.pictest.controll_panel.hide(this);
+        }
+        // Button change text
+        if (event.target.className == "button_change_text") {
+            window.pictest.controll_panel.target.change_text();
+        }
+        // Button change theme
+        if (event.target.className == "button_change_theme") {
+            window.pictest.controll_panel.target.change_theme();
         }
     }
 
@@ -437,7 +453,7 @@ class Controll_panel {
             let image = document.createElement('img');
             image.src = event.target.result;
             image.onload = function() {
-                elem.style.setProperty('--' + property, 'url("' + event.target.result + '")');
+                elem.style.setProperty(property, 'url("' + event.target.result + '")');
             };
             image.onerror = function() {
                 alert("Failed to upload " + file.name);
@@ -458,18 +474,10 @@ class Pictest {
     }
 
     refresh() {
-        this.brake_links();
-        this.products = new Parsed_elements_container();
-        //this.news_full = new News_full("news-card_full-image");
-        //this.news_half = new News_half("news-card_half-image");
-        //this.superblock = new Superblock("superblock-card");
-    }
-
-    brake_links() {
-        let links = document.getElementsByTagName("a");
-        [].forEach.call(links, function(link) {
-            link.addEventListener("click", (event) => event.preventDefault());
-        });
+        this.products = new Parsed_elements_container(Product, "product-card");
+        this.superblocks = new Parsed_elements_container(Superblock, "superblock-card");
+        this.news_full_cards = new Parsed_elements_container(News_full_card, "news-card_full-image");
+        this.news_half_cards = new Parsed_elements_container(News_half_card, "news-card_half-image");
     }
 }
 
