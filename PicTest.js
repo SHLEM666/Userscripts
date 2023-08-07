@@ -329,10 +329,14 @@ class Controll_panel {
         this.hide();
         this.base_html = `
 <div class="connroll_panel">
+  <input class="insert_symbol_1" type="button" value='" "' title="Insert non-breaking space">
+  <input class="insert_symbol_2" type="button" value='" &#8629; "' title="Insert new line">
+  <input class="insert_symbol_3" type="button" value='"–"' title="Insert em dash">
+  <input class="insert_symbol_4" type="button" value='"«"' title="Insert left-pointing double angle quotation mark">
+  <input class="insert_symbol_5" type="button" value='"»"' title="Insert right-pointing double angle quotation mark"><br>
   <textarea class="card_text" placeholder="Feature text" resi></textarea><br>
   <input class="button_change_text" type="button" value="Change text">
-  <input class="insert_symbol_1" type="button" value='" "' title="Insert non-breaking space">
-  <input class="insert_symbol_2" type="button" value='"&#8629;"' title="Insert new line"><br>
+
   <p>
     <input class="button_change_theme" type="button" value="Change theme">
   </p>
@@ -377,6 +381,10 @@ class Controll_panel {
     width: 97%;
     height: 50pt;
     resize: none;
+    margin-top: 12px;
+  }
+  input {
+    height: 1.6em;
   }
 
 </style>
@@ -407,7 +415,9 @@ class Controll_panel {
     }
 
     insert_symbol(symbol) {
-        this.text_input.value = this.text_input.value + symbol;
+        let str = this.text_input.value;
+        let index = this.text_input.selectionStart;
+        this.text_input.value = str.slice(0, index) + symbol + str.slice(index);
     }
 
     click_handler(event) {
@@ -418,6 +428,18 @@ class Controll_panel {
          // Button insert symbol 2
         if (event.target.className == "insert_symbol_2") {
             window.pictest.controll_panel.insert_symbol("<br>");
+        }
+         // Button insert symbol 3
+        if (event.target.className == "insert_symbol_3") {
+            window.pictest.controll_panel.insert_symbol("—");
+        }
+         // Button insert symbol 4
+        if (event.target.className == "insert_symbol_4") {
+            window.pictest.controll_panel.insert_symbol("«");
+        }
+         // Button insert symbol 5
+        if (event.target.className == "insert_symbol_5") {
+            window.pictest.controll_panel.insert_symbol("»");
         }
         // Button Cancle
         if (event.target.className == "button_cancle") {
@@ -486,8 +508,17 @@ class Pictest {
 
 (function() {'use strict';
 
+    function wheel_handler(event) {
+        event.preventDefault();
+    }
+
+    window.addEventListener("wheel", wheel_handler, {passive: false});
+
     window.onload = function() {
-       window.pictest = new Pictest();
+        window.pictest = new Pictest();
+        setTimeout(()=>{
+            window.removeEventListener("wheel", wheel_handler);
+        }, 500);
     }
 
     window.onbeforeunload = function() {
