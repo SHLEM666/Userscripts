@@ -377,7 +377,7 @@ class Controll_panel {
   }
   .card_text {
     width: 97%;
-    height: 50pt;
+    height: 60pt;
     resize: none;
     margin-top: 12px;
   }
