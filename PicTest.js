@@ -71,7 +71,7 @@ class Header extends Parced_element {
     add_change_theme_clients() {
         this.change_theme_clients.push(
             new Change_theme_client(this.item, "header_theme_white", "header_theme_black"),
-            new Change_theme_client(this.item.getElementsByClassName("logo")[0], "logo_theme_white", "gogo_theme_black"),
+            new Change_theme_client(this.item.getElementsByClassName("logo")[0], "logo_theme_white", "logo_theme_black"),
             new Change_theme_client(this.item.getElementsByClassName("menu-services")[0], "menu-services_theme_white", "menu-services_theme_black")
         );
     }
