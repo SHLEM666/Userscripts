@@ -8,7 +8,7 @@
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=yandex-team.ru
 // @grant        none
 // @run-at       document-start
-// @require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/PicTest.js
+// require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/PicTest.js
 // @require      https://gist.githubusercontent.com/rainyjune/4951208/raw/1b127e91171d8aa650e27d3e720eb19636fc815b/gistfile1.js
 // ==/UserScript==
 
@@ -251,6 +251,8 @@ class News_full_card extends News_card {
 
 class News_half_card extends News_card {
 
+    add_change_theme_clients() {};
+
     click_handler(event) {
         super.click_handler(event);
         window.pictest.news_half_cards.edit(this);
@@ -459,7 +461,9 @@ class Controll_panel {
                 alert("Failed to upload " + file.name);
             };
         };
-        reader.readAsDataURL(file);
+        if (file) {
+            reader.readAsDataURL(file);
+        }
     }
 }
 
