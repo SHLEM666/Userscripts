@@ -1,15 +1,14 @@
 // ==UserScript==
 // @name         PicTest
 // @namespace    http://tampermonkey.net/
-// @version      0.25
+// @version      0.26
 // @description  try to take over the world!
 // @author       SHLEM666
 // @match        https://yandex.ru/company
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=yandex-team.ru
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=yandex.ru
 // @grant        none
 // @run-at       document-start
-// @require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/PicTest.js
-// @require      https://gist.githubusercontent.com/rainyjune/4951208/raw/1b127e91171d8aa650e27d3e720eb19636fc815b/gistfile1.js
+// require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/PicTest.js
 // ==/UserScript==
 
 class Parced_element {
@@ -301,7 +300,7 @@ class Change_theme_client {
     }
 
     change_theme() {
-        if (classList(this.item).contains(this.white_theme_class_name)) {
+        if (this.item.classList.contains(this.white_theme_class_name)) {
             this.set_black_theme();
         } else {
             this.set_white_theme();
@@ -309,13 +308,13 @@ class Change_theme_client {
     }
 
     set_black_theme() {
-        classList(this.item).remove(this.white_theme_class_name);
-        classList(this.item).add(this.black_theme_class_name);
+        this.item.classList.remove(this.white_theme_class_name);
+        this.item.classList.add(this.black_theme_class_name);
     }
 
     set_white_theme() {
-        classList(this.item).add(this.white_theme_class_name);
-        classList(this.item).remove(this.black_theme_class_name);
+        this.item.classList.add(this.white_theme_class_name);
+        this.item.classList.remove(this.black_theme_class_name);
     }
 }
 
@@ -389,11 +388,11 @@ class Controll_panel {
     }
 
     show() {
-        classList(this.elem).remove("own_created_elems_hidden");
+        this.elem.classList.remove("own_created_elems_hidden");
     }
 
     hide() {
-        classList(this.elem).add("own_created_elems_hidden");
+        this.elem.classList.add("own_created_elems_hidden");
     }
 
     place() {
