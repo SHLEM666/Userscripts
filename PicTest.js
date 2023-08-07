@@ -36,7 +36,7 @@ class Parced_element {
     }
 
     change_text() {
-        this.text_element.innerHTML = window.pictest.controll_panel.text_element.value;
+        this.text_element.innerHTML = window.pictest.controll_panel.text_input.value;
     }
 
     edit() {
@@ -51,6 +51,48 @@ class Parced_element {
     <input class="file_input" type="file" data-style_property="` + this.image_style_property + `" multiple="false">
   </p>`;
         return base_html.replace(target, replacement);
+    }
+}
+
+class Header extends Parced_element {
+
+    constructor() {
+        super();
+        this.item = this.parse();
+        this.change_theme_clients = [];
+        this.add_change_theme_clients();
+        this.set_onclick();
+    }
+
+    parse() {
+        return this.spoof_target(document.getElementsByClassName("header")[0]);
+    }
+
+    add_change_theme_clients() {
+        this.change_theme_clients.push(
+            new Change_theme_client(this.item, "header_theme_white", "header_theme_black"),
+            new Change_theme_client(this.item.getElementsByClassName("logo")[0], "logo_theme_white", "gogo_theme_black"),
+            new Change_theme_client(this.item.getElementsByClassName("menu-services")[0], "menu-services_theme_white", "menu-services_theme_black")
+        );
+    }
+}
+
+class Main_feed_button extends Parced_element {
+
+    constructor() {
+        super();
+        this.item = this.parse();
+        this.set_onclick();
+    }
+
+    parse() {
+        return document.getElementsByClassName("main-feed__button")[0];
+    }
+
+    click_handler() {
+        setTimeout(()=>{
+            window.pictest.refresh();
+        }, 100);
     }
 }
 
@@ -108,48 +150,6 @@ class Feature extends Parced_element {
     <input class="file_input" type="file" data-style_property="` + this.image_style_property_mobile + `" multiple="false">
   </p>`;
         return base_html.replace(target, replacement);
-    }
-}
-
-class Header extends Parced_element {
-
-    constructor() {
-        super();
-        this.item = this.parse();
-        this.change_theme_clients = [];
-        this.add_change_theme_clients();
-        this.set_onclick();
-    }
-
-    parse() {
-        return this.spoof_target(document.getElementsByClassName("header")[0]);
-    }
-
-    add_change_theme_clients() {
-        this.change_theme_clients.push(
-            new Change_theme_client(this.item, "header_theme_white", "header_theme_black"),
-            new Change_theme_client(this.item.getElementsByClassName("logo")[0], "logo_theme_white", "gogo_theme_black"),
-            new Change_theme_client(this.item.getElementsByClassName("menu-services")[0], "menu-services_theme_white", "menu-services_theme_black")
-        );
-    }
-}
-
-class Main_feed_button extends Parced_element {
-
-    constructor() {
-        super();
-        this.item = this.parse();
-        this.set_onclick();
-    }
-
-    parse() {
-        return document.getElementsByClassName("main-feed__button")[0];
-    }
-
-    click_handler() {
-        setTimeout(()=>{
-            window.pictest.refresh();
-        }, 100);
     }
 }
 
@@ -403,12 +403,12 @@ class Controll_panel {
         this.show();
         this.target = target;
         this.elem.innerHTML = target.build_html();
-        this.text_element = this.elem.getElementsByClassName("card_text")[0];
-        this.text_element.value = target.text_element.innerHTML;
+        this.text_input = this.elem.getElementsByClassName("card_text")[0];
+        this.text_input.value = target.text_element.innerHTML;
     }
 
     insert_symbol(symbol) {
-        this.target.text_input.value = this.text_element.value + symbol;
+        this.text_input.value = this.text_input.value + symbol;
     }
 
     click_handler(event) {
@@ -422,7 +422,7 @@ class Controll_panel {
         }
         // Button Cancle
         if (event.target.className == "button_cancle") {
-            window.pictest.controll_panel.hide(this);
+            window.pictest.controll_panel.hide();
         }
         // Button change text
         if (event.target.className == "button_change_text") {
@@ -444,7 +444,7 @@ class Controll_panel {
     mousedown_handler(event) {
         // Wrapper
         if (event.target.className == "connroll_panel_wrapper") {
-            window.pictest.controll_panel.hide(this);
+            window.pictest.controll_panel.hide();
         }
     }
 
@@ -489,7 +489,6 @@ class Pictest {
 
     window.onload = function() {
        window.pictest = new Pictest();
-       console.log(window.pictest);
     }
 
     window.onbeforeunload = function() {
