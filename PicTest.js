@@ -60,6 +60,7 @@ class Header extends Parced_element {
         this.item = this.parse();
         this.change_theme_clients = [];
         this.add_change_theme_clients();
+        this.init_position_checker();
         this.set_onclick();
     }
 
@@ -73,6 +74,22 @@ class Header extends Parced_element {
             new Change_theme_client(this.item.getElementsByClassName("logo")[0], "logo_theme_white", "logo_theme_black"),
             new Change_theme_client(this.item.getElementsByClassName("menu-services")[0], "menu-services_theme_white", "menu-services_theme_black")
         );
+    }
+
+    init_position_checker() {
+        setTimeout(function f() {
+            window.pictest.header.toggle_visibility();
+            setTimeout(f, 500);
+        }, 500);
+    }
+
+    toggle_visibility () {
+        let feature_height = parseInt(window.getComputedStyle(window.pictest.feature.item).height);
+        if ((window.pageYOffset || window.scrollY) > feature_height) {
+            window.pictest.header.item.style.display = "none";
+        } else {
+            window.pictest.header.item.style.display = "block";
+        }
     }
 }
 
