@@ -272,7 +272,7 @@ class News_half_card extends News_card {
 class Parsed_elements_container {
 
     constructor(class_obj, class_name) {
-        this._items = document.getElementsByClassName(class_name);
+        this.items_elements = document.getElementsByClassName(class_name);
         this.class_obj = class_obj;
         this.items = this.parse();
     }
@@ -280,14 +280,14 @@ class Parsed_elements_container {
     parse() {
         let result = [];
         let _this = this;
-        [].forEach.call(this._items, function(item) {
+        [].forEach.call(this.items_elements, function(item) {
             result.push(new _this.class_obj(item));
         });
         return result;
     }
 
     edit(target) {
-        let index = [].indexOf.call(this._items, target)
+        let index = [].indexOf.call(this.items_elements, target)
         this.items[index].edit(target);
     }
 }
@@ -323,10 +323,9 @@ class Controll_panel {
 
     constructor() {
         this.elem = this.place();
-        let _this = this;
-        this.elem.addEventListener("click", _this.click_handler);
-        this.elem.addEventListener("change", _this.change_handler);
-        this.elem.addEventListener("mousedown", _this.mousedown_handler);
+        this.elem.addEventListener("click", this.click_handler);
+        this.elem.addEventListener("change", this.change_handler);
+        this.elem.addEventListener("mousedown", this.mousedown_handler);
         this.hide();
         this.base_html = `
 <div class="connroll_panel">
