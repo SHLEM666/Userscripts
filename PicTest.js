@@ -336,12 +336,10 @@ class Controll_panel {
   <input class="insert_symbol_5" type="button" value='"»"' title="Insert right-pointing double angle quotation mark"><br>
   <textarea class="card_text" placeholder="Feature text" resi></textarea><br>
   <input class="button_change_text" type="button" value="Change text">
-
   <p>
     <input class="button_change_theme" type="button" value="Change theme">
   </p>
   // STRING TO REPLACE //
-
   <input class="button_cancle" type="button" value="Close"><br>
 </div>
 <style>
@@ -386,7 +384,6 @@ class Controll_panel {
   input {
     height: 1.6em;
   }
-
 </style>
 `;
     }
