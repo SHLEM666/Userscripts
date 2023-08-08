@@ -56,7 +56,9 @@ class Header extends Parced_element {
 
     constructor() {
         super();
-        this.item = this.parse();
+        this.item = this.spoof_target(
+            document.getElementsByClassName("header")[0]
+        );
         this.item.style.position = "absolute";
         this.change_theme_clients = [
             new Change_theme_client(this.item, "header_theme_white", "header_theme_black"),
@@ -65,22 +67,14 @@ class Header extends Parced_element {
         ];
         this.set_onclick();
     }
-
-    parse() {
-        return this.spoof_target(document.getElementsByClassName("header")[0]);
-    }
 }
 
 class Main_feed_button extends Parced_element {
 
     constructor() {
         super();
-        this.item = this.parse();
+        this.item = document.getElementsByClassName("main-feed__button")[0];
         this.set_onclick();
-    }
-
-    parse() {
-        return document.getElementsByClassName("main-feed__button")[0];
     }
 
     click_handler() {
@@ -108,7 +102,9 @@ class Feature extends Parced_element {
     }
 
     parse() {
-        let new_elem = this.spoof_target(document.getElementsByClassName("slideshow")[0]);
+        let new_elem = this.spoof_target(
+            document.getElementsByClassName("slideshow")[0]
+        );
         return new_elem.getElementsByClassName("feature")[0];
     }
 
@@ -319,7 +315,7 @@ class Controll_panel {
   .own_created_elems_hidden {
     display: none;
   }
-  .connroll_panel_wrapper {
+  .controll_panel_wrapper {
     background-color: rgba(0,0,0,0.5);
     position: fixed;
     left: 0px;
@@ -329,7 +325,7 @@ class Controll_panel {
     z-index: 20;
     text-align: center;
   }
-  .connroll_panel_wrapper:after {
+  .controll_panel_wrapper:after {
     height: 100%;
     display: inline-block;
     vertical-align: middle;
@@ -368,7 +364,7 @@ class Controll_panel {
 
     place() {
         let elem = document.createElement("div");
-        elem.className = "connroll_panel_wrapper";
+        elem.className = "controll_panel_wrapper";
         document.body.append(elem);
         return elem;
     }
@@ -440,7 +436,7 @@ class Controll_panel {
 
     mousedown_handler(event) {
         // Wrapper
-        if (event.target.className == "connroll_panel_wrapper") {
+        if (event.target.className == "controll_panel_wrapper") {
             window.pictest.controll_panel.hide();
         }
     }
