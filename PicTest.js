@@ -163,7 +163,6 @@ class Product extends Parced_element {
         this.text_element = this.item.getElementsByClassName("product-card__title")[0];
         this.image_element = this.item.getElementsByClassName("product-card__img")[0];
         this.image_style_property = "--product-image";
-        this.container_name = "";
         this.set_onclick();
     }
 
@@ -228,7 +227,6 @@ class News_card extends Parced_element {
         this.text_element = this.item.getElementsByClassName("news-card__title")[0].getElementsByTagName("span")[0];
         this.image_element = this.item.getElementsByClassName("news-card__image")[0];
         this.image_style_property = "--news-image";
-        this.container_name = "";
         this.set_onclick();
     }
 }
