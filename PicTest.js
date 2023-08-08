@@ -161,7 +161,7 @@ class Product extends Parced_element {
         this.change_theme_clients = [];
         this.add_change_theme_clients();
         this.text_element = this.item.getElementsByClassName("product-card__title")[0];
-        this.image_element = this.item.children[0];
+        this.image_element = this.item.getElementsByClassName("product-card__img")[0];
         this.image_style_property = "--product-image";
         this.container_name = "";
         this.set_onclick();
@@ -188,7 +188,7 @@ class Superblock extends Parced_element {
         this.change_theme_clients = [];
         this.add_change_theme_clients();
         this.text_element = this.item.getElementsByClassName("superblock-card__title")[0].getElementsByTagName("span")[0];
-        this.image_element = this.item.children[0];
+        this.image_element = this.item.getElementsByClassName("superblock-card__img")[0];
         this.image_style_property_desktop = "--img-desktop";
         this.image_style_property_mobile = "--img-mobile";
         this.set_onclick();
@@ -225,7 +225,6 @@ class News_card extends Parced_element {
         super();
         this.item = elem;
         this.change_theme_clients = [];
-        this.add_change_theme_clients();
         this.text_element = this.item.getElementsByClassName("news-card__title")[0].getElementsByTagName("span")[0];
         this.image_element = this.item.getElementsByClassName("news-card__image")[0];
         this.image_style_property = "--news-image";
@@ -235,6 +234,11 @@ class News_card extends Parced_element {
 }
 
 class News_full_card extends News_card {
+
+    constructor(elem) {
+        super(elem);
+        this.add_change_theme_clients();
+    }
 
     add_change_theme_clients() {
         this.change_theme_clients.push(
@@ -250,8 +254,6 @@ class News_full_card extends News_card {
 }
 
 class News_half_card extends News_card {
-
-    add_change_theme_clients() {};
 
     click_handler(event) {
         super.click_handler(event);
