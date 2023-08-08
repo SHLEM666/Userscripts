@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PicTest
 // @namespace    http://tampermonkey.net/
-// @version      0.26
+// @version      0.27
 // @description  try to take over the world!
 // @author       SHLEM666
 // @match        https://yandex.ru/company
@@ -42,14 +42,13 @@ class Parced_element {
         window.pictest.controll_panel.start_edit(this);
     }
 
-    build_html() {
-        let base_html = window.pictest.controll_panel.base_html;
-        let target = "// STRING TO REPLACE //";
-        let replacement = `
+    get_replace_pairs() {
+        return [{
+            pattern: "// STRING TO REPLACE //",
+            replacement: `
   <p class="file_input_lable">Image<br>
     <input class="file_input" type="file" data-style_property="` + this.image_style_property + `" multiple="false">
-  </p>`;
-        return base_html.replace(target, replacement);
+  </p>`}];
     }
 }
 
@@ -59,21 +58,16 @@ class Header extends Parced_element {
         super();
         this.item = this.parse();
         this.item.style.position = "absolute";
-        this.change_theme_clients = [];
-        this.add_change_theme_clients();
+        this.change_theme_clients = [
+            new Change_theme_client(this.item, "header_theme_white", "header_theme_black"),
+            new Change_theme_client(this.item.getElementsByClassName("logo")[0], "logo_theme_white", "logo_theme_black"),
+            new Change_theme_client(this.item.getElementsByClassName("menu-services")[0], "menu-services_theme_white", "menu-services_theme_black")
+        ];
         this.set_onclick();
     }
 
     parse() {
         return this.spoof_target(document.getElementsByClassName("header")[0]);
-    }
-
-    add_change_theme_clients() {
-        this.change_theme_clients.push(
-            new Change_theme_client(this.item, "header_theme_white", "header_theme_black"),
-            new Change_theme_client(this.item.getElementsByClassName("logo")[0], "logo_theme_white", "logo_theme_black"),
-            new Change_theme_client(this.item.getElementsByClassName("menu-services")[0], "menu-services_theme_white", "menu-services_theme_black")
-        );
     }
 }
 
@@ -101,8 +95,9 @@ class Feature extends Parced_element {
     constructor() {
         super();
         this.item = this.parse();
-        this.change_theme_clients = [];
-        this.add_change_theme_clients();
+        this.change_theme_clients = [
+            new Change_theme_client(this.item, "feature_theme_white", "feature_theme_black")
+        ];
         this.text_element = this.item.getElementsByClassName("feature__title")[0];
         this.image_element = this.item;
         this.image_style_property_desktop = "--feature-image-desktop";
@@ -115,12 +110,6 @@ class Feature extends Parced_element {
     parse() {
         let new_elem = this.spoof_target(document.getElementsByClassName("slideshow")[0]);
         return new_elem.getElementsByClassName("feature")[0];
-    }
-
-    add_change_theme_clients() {
-        this.change_theme_clients.push(
-            new Change_theme_client(this.item, "feature_theme_white", "feature_theme_black")
-        );
     }
 
     correct_width() {
@@ -137,10 +126,10 @@ class Feature extends Parced_element {
         window.pictest.feature.edit();
     }
 
-    build_html() {
-        let base_html = window.pictest.controll_panel.base_html;
-        let target = "// STRING TO REPLACE //";
-        let replacement = `
+    get_replace_pairs() {
+        return [{
+            pattern: "// STRING TO REPLACE //",
+            replacement: `
   <p class="file_input_lable">Desktop image<br>
     <input class="file_input" type="file" data-style_property="` + this.image_style_property_desktop + `" multiple="false">
   </p>
@@ -148,8 +137,7 @@ class Feature extends Parced_element {
     <input class="file_input" type="file" data-style_property="` + this.image_style_property_tablet + `" multiple="false"></p>
   <p class="file_input_lable">Mobile image<br>
     <input class="file_input" type="file" data-style_property="` + this.image_style_property_mobile + `" multiple="false">
-  </p>`;
-        return base_html.replace(target, replacement);
+  </p>`}];
     }
 }
 
@@ -158,19 +146,14 @@ class Product extends Parced_element {
     constructor(elem) {
         super();
         this.item = elem;
-        this.change_theme_clients = [];
-        this.add_change_theme_clients();
+        this.change_theme_clients = [
+            new Change_theme_client(this.item, "product-card_theme_white", "product-card_theme_black"),
+            new Change_theme_client(this.item.getElementsByClassName("yandex-service")[0], "yandex-service_color_white", "yandex-service_color_black")
+        ];
         this.text_element = this.item.getElementsByClassName("product-card__title")[0];
         this.image_element = this.item.getElementsByClassName("product-card__img")[0];
         this.image_style_property = "--product-image";
         this.set_onclick();
-    }
-
-    add_change_theme_clients() {
-        this.change_theme_clients.push(
-            new Change_theme_client(this.item, "product-card_theme_white", "product-card_theme_black"),
-            new Change_theme_client(this.item.getElementsByClassName("yandex-service")[0], "yandex-service_color_white", "yandex-service_color_black")
-        );
     }
 
     click_handler(event) {
@@ -184,8 +167,9 @@ class Superblock extends Parced_element {
     constructor(elem) {
         super();
         this.item = elem;
-        this.change_theme_clients = [];
-        this.add_change_theme_clients();
+        this.change_theme_clients = [
+            new Change_theme_client(this.item, "superblock-card_theme_white", "superblock-card_theme_black")
+        ];
         this.text_element = this.item.getElementsByClassName("superblock-card__title")[0].getElementsByTagName("span")[0];
         this.image_element = this.item.getElementsByClassName("superblock-card__img")[0];
         this.image_style_property_desktop = "--img-desktop";
@@ -193,28 +177,21 @@ class Superblock extends Parced_element {
         this.set_onclick();
     }
 
-    add_change_theme_clients() {
-        this.change_theme_clients.push(
-            new Change_theme_client(this.item, "superblock-card_theme_white", "superblock-card_theme_black")
-        );
-    }
-
     click_handler(event) {
         super.click_handler(event);
         window.pictest.superblocks.edit(this);
     }
 
-    build_html() {
-        let base_html = window.pictest.controll_panel.base_html;
-        let target = "// STRING TO REPLACE //";
-        let replacement = `
+    get_replace_pairs() {
+        return [{
+            pattern: "// STRING TO REPLACE //",
+            replacement: `
   <p class="file_input_lable">Desktop image<br>
     <input class="file_input" type="file" data-style_property="` + this.image_style_property_desktop + `" multiple="false">
   </p>
   <p class="file_input_lable">Mobile image<br>
     <input class="file_input" type="file" data-style_property="` + this.image_style_property_mobile + `" multiple="false">
-  </p>`;
-        return base_html.replace(target, replacement);
+  </p>`}];
     }
 }
 
@@ -223,7 +200,6 @@ class News_card extends Parced_element {
     constructor(elem) {
         super();
         this.item = elem;
-        this.change_theme_clients = [];
         this.text_element = this.item.getElementsByClassName("news-card__title")[0].getElementsByTagName("span")[0];
         this.image_element = this.item.getElementsByClassName("news-card__image")[0];
         this.image_style_property = "--news-image";
@@ -235,14 +211,10 @@ class News_full_card extends News_card {
 
     constructor(elem) {
         super(elem);
-        this.add_change_theme_clients();
-    }
-
-    add_change_theme_clients() {
-        this.change_theme_clients.push(
+        this.change_theme_clients = [
             new Change_theme_client(this.item, "news-card_theme_white", "news-card_theme_black"),
             new Change_theme_client(this.item.getElementsByClassName("yandex-service")[0], "yandex-service_color_white", "yandex-service_color_black")
-        );
+        ];
     }
 
     click_handler(event) {
@@ -258,14 +230,15 @@ class News_half_card extends News_card {
         window.pictest.news_half_cards.edit(this);
     }
 
-    build_html() {
-        let base_html = super.build_html();
-        let target = `
+    get_replace_pairs() {
+        let pairs = super.get_replace_pairs();
+        pairs.push({
+            pattern: `
   <p>
     <input class="button_change_theme" type="button" value="Change theme">
-  </p>`;
-        let replacement = "";
-        return base_html.replace(target, replacement);
+  </p>`,
+            replacement: ""});
+        return pairs;
     }
 }
 
@@ -403,9 +376,18 @@ class Controll_panel {
     start_edit(target) {
         this.show();
         this.target = target;
-        this.elem.innerHTML = target.build_html();
+        this.elem.innerHTML = this.build_html();
         this.text_input = this.elem.getElementsByClassName("card_text")[0];
         this.text_input.value = target.text_element.innerHTML;
+    }
+
+    build_html() {
+        let result = this.base_html;
+        let pairs = this.target.get_replace_pairs();
+        [].forEach.call(pairs, function(pair) {
+            result = result.replace(pair.pattern, pair.replacement);
+        });
+        return result;
     }
 
     insert_symbol(symbol) {
