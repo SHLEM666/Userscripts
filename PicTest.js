@@ -430,7 +430,11 @@ class Controll_panel {
     change_handler(event) {
         // File input
         if (event.target.className == "file_input") {
-            window.pictest.controll_panel.read_file(event.target, event.target.dataset.style_property, window.pictest.controll_panel.target.image_element);
+            window.pictest.controll_panel.read_file(
+                event.target,
+                event.target.dataset.style_property,
+                window.pictest.controll_panel.target.image_element
+            );
         }
     }
 
