@@ -39,10 +39,10 @@ class Parced_element {
     }
 
     edit() {
-        window.pictest.controll_panel.start_edit(this);
+        window.pictest.controll_panel.initialze(this);
     }
 
-    get_replace_pairs() {
+    get_replacement_pairs() {
         return [{
             pattern: "// STRING TO REPLACE //",
             replacement: `
@@ -122,7 +122,7 @@ class Feature extends Parced_element {
         window.pictest.feature.edit();
     }
 
-    get_replace_pairs() {
+    get_replacement_pairs() {
         return [{
             pattern: "// STRING TO REPLACE //",
             replacement: `
@@ -178,7 +178,7 @@ class Superblock extends Parced_element {
         window.pictest.superblocks.edit(this);
     }
 
-    get_replace_pairs() {
+    get_replacement_pairs() {
         return [{
             pattern: "// STRING TO REPLACE //",
             replacement: `
@@ -226,8 +226,8 @@ class News_half_card extends News_card {
         window.pictest.news_half_cards.edit(this);
     }
 
-    get_replace_pairs() {
-        let pairs = super.get_replace_pairs();
+    get_replacement_pairs() {
+        let pairs = super.get_replacement_pairs();
         pairs.push({
             pattern: `
   <p>
@@ -303,7 +303,7 @@ class Controll_panel {
   <input class="insert_symbol_3" type="button" value='"–"' title="Insert em dash">
   <input class="insert_symbol_4" type="button" value='"«"' title="Insert left-pointing double angle quotation mark">
   <input class="insert_symbol_5" type="button" value='"»"' title="Insert right-pointing double angle quotation mark"><br>
-  <textarea class="card_text" placeholder="Feature text" resi></textarea><br>
+  <textarea class="controll_panel_card_text" placeholder="Feature text" resi></textarea><br>
   <input class="button_change_text" type="button" value="Change text">
   <p>
     <input class="button_change_theme" type="button" value="Change theme">
@@ -312,9 +312,6 @@ class Controll_panel {
   <input class="button_cancle" type="button" value="Close"><br>
 </div>
 <style>
-  .own_created_elems_hidden {
-    display: none;
-  }
   .controll_panel_wrapper {
     background-color: rgba(0,0,0,0.5);
     position: fixed;
@@ -344,7 +341,10 @@ class Controll_panel {
     -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
     filter: progid:DXImageTransform.Microsoft.shadow(direction=180, color=#000000, strength=10);
   }
-  .card_text {
+  .controll_panel_hidden {
+    display: none;
+  }
+  .controll_panel_card_text {
     width: 97%;
     height: 60pt;
     resize: none;
@@ -355,11 +355,11 @@ class Controll_panel {
     }
 
     show() {
-        this.elem.classList.remove("own_created_elems_hidden");
+        this.elem.classList.remove("controll_panel_hidden");
     }
 
     hide() {
-        this.elem.classList.add("own_created_elems_hidden");
+        this.elem.classList.add("controll_panel_hidden");
     }
 
     place() {
@@ -369,17 +369,17 @@ class Controll_panel {
         return elem;
     }
 
-    start_edit(target) {
+    initialze(target) {
         this.show();
         this.target = target;
         this.elem.innerHTML = this.build_html();
-        this.text_input = this.elem.getElementsByClassName("card_text")[0];
+        this.text_input = this.elem.getElementsByClassName("controll_panel_card_text")[0];
         this.text_input.value = target.text_element.innerHTML;
     }
 
     build_html() {
         let result = this.base_html;
-        let pairs = this.target.get_replace_pairs();
+        let pairs = this.target.get_replacement_pairs();
         [].forEach.call(pairs, function(pair) {
             result = result.replace(pair.pattern, pair.replacement);
         });
