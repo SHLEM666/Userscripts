@@ -42,7 +42,7 @@
     style.innerHTML += 'pre div:nth-child(4n) {background-color: #333333;}';
     style.innerHTML += 'pre > div {padding: 2pt 5pt; line-height: 18pt}';
 
-    // Оформление блоков хитро....анных блоков кода
+    // Оформление хитро....анных блоков кода
     style.innerHTML += 'div.codearea {background-color: #333333; border: 1pt solid #333333; line-height: 18pt;}';
     style.innerHTML += 'div.codearea pre {color: white; padding: 0px;}';
     style.innerHTML += 'div.codearea pre span.ID {color: white;}';
