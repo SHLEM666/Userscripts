@@ -144,7 +144,8 @@ class Product extends Parced_element {
         this.item = elem;
         this.change_theme_clients = [
             new Change_theme_client(this.item, "product-card_theme_white", "product-card_theme_black"),
-            new Change_theme_client(this.item.getElementsByClassName("yandex-service")[0], "yandex-service_color_white", "yandex-service_color_black")
+            new Change_theme_client(this.item.getElementsByClassName("yandex-service")[0], "yandex-service_color_white", "yandex-service_color_black"),
+            new Change_theme_client(this.item.getElementsByClassName("icon-inline_type_external-link")[0], "icon-inline_color_white", "icon-inline_color_black")
         ];
         this.text_element = this.item.getElementsByClassName("product-card__title")[0];
         this.image_element = this.item.getElementsByClassName("product-card__img")[0];
@@ -164,7 +165,8 @@ class Superblock extends Parced_element {
         super();
         this.item = elem;
         this.change_theme_clients = [
-            new Change_theme_client(this.item, "superblock-card_theme_white", "superblock-card_theme_black")
+            new Change_theme_client(this.item, "superblock-card_theme_white", "superblock-card_theme_black"),
+            new Change_theme_client(this.item.getElementsByClassName("icon-inline_type_external-link")[0], "icon-inline_color_white", "icon-inline_color_black")
         ];
         this.text_element = this.item.getElementsByClassName("superblock-card__title")[0].getElementsByTagName("span")[0];
         this.image_element = this.item.getElementsByClassName("superblock-card__img")[0];
@@ -213,7 +215,8 @@ class News_full_card extends News_card {
         super(elem);
         this.change_theme_clients = [
             new Change_theme_client(this.item, "news-card_theme_white", "news-card_theme_black"),
-            new Change_theme_client(this.item.getElementsByClassName("yandex-service")[0], "yandex-service_color_white", "yandex-service_color_black")
+            new Change_theme_client(this.item.getElementsByClassName("yandex-service")[0], "yandex-service_color_white", "yandex-service_color_black"),
+            new Change_theme_client(this.item.getElementsByClassName("icon-inline_type_external-link")[0], "icon-inline_color_white", "icon-inline_color_black")
         ];
     }
 
