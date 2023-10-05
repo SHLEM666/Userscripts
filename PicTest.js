@@ -196,10 +196,14 @@ class News_card extends Parced_element {
     constructor(elem) {
         super();
         this.item = elem;
-        this.text_element = this.item.getElementsByClassName("news-card__title")[0].getElementsByTagName("span")[0];
+        this.text_element = this.get_text_element();
         this.image_element = this.item.getElementsByClassName("news-card__image")[0];
         this.image_style_property = "--news-image";
         this.set_onclick();
+    }
+
+    get_text_element() {
+        return this.item.getElementsByClassName("news-card__title")[0].getElementsByTagName("span")[0];
     }
 }
 
@@ -211,6 +215,15 @@ class News_full_card extends News_card {
             new Change_theme_client(this.item, "news-card_theme_white", "news-card_theme_black"),
             new Change_theme_client(this.item.getElementsByClassName("yandex-service")[0], "yandex-service_color_white", "yandex-service_color_black")
         ];
+    }
+
+    get_text_element() {
+        let title = this.item.getElementsByClassName("news-card__title")[0];
+        if (title.children[0].className) {
+            return title.getElementsByTagName("span")[1];
+        } else {
+            return title.getElementsByTagName("span")[0];
+        }
     }
 
     click_handler(event) {
