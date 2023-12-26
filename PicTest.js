@@ -200,7 +200,7 @@ class News_card extends Parced_element {
         this.item = elem;
         this.text_element = this.get_text_element();
         this.image_element = this.item.getElementsByClassName("news-card__image")[0];
-        this.image_style_property = "--news-image";
+        this.image_style_property = "--news-card-image";
         this.set_onclick();
     }
 
