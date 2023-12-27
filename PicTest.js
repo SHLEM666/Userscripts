@@ -238,6 +238,15 @@ class News_full_card extends News_card {
 
 class News_half_card extends News_card {
 
+    constructor(elem) {
+        super(elem);
+        this.change_theme_clients = [
+            new Change_theme_client(this.item, "news-card_theme_white", "news-card_theme_black"),
+            new Change_theme_client(this.item.getElementsByClassName("yandex-service")[0], "yandex-service_color_white", "yandex-service_color_black"),
+            new Change_theme_client(this.item.getElementsByClassName("icon-inline_type_external-link")[0], "icon-inline_color_white", "icon-inline_color_black")
+        ];
+    }
+
     click_handler(event) {
         super.click_handler(event);
         window.pictest.news_half_cards.edit(this);
@@ -250,8 +259,18 @@ class News_half_card extends News_card {
   <p>
     <input class="button_change_theme" type="button" value="Change theme">
   </p>`,
-            replacement: ""});
+            replacement: `
+  <p>
+    <input class="button_change_theme" type="button" value="Change theme">
+  </p>
+  <textarea class="controll_panel_card_bg_color" placeholder="#color-code"></textarea><br>
+  <input class="button_change_bg_color" type="button" value="Change color"><br>
+  `});
         return pairs;
+    }
+
+    change_bg_color() {
+        this.item.style.setProperty("--news-card-bg", window.pictest.controll_panel.bg_color_input.value);
     }
 }
 
@@ -279,12 +298,10 @@ class News_statistic_card extends News_card {
         let pairs = [];
         pairs.push({
             pattern: `
-  <textarea class="controll_panel_card_text" placeholder="Feature text"></textarea><br>
-`,
+  <textarea class="controll_panel_card_text" placeholder="Feature text"></textarea><br>`,
             replacement: `
   <textarea class="controll_panel_card_digit" placeholder="Feature text"></textarea><br>
-  <textarea class="controll_panel_card_text" placeholder="Feature text"></textarea><br>
-`});
+  <textarea class="controll_panel_card_text" placeholder="Feature text"></textarea><br>`});
         pairs.push({
             pattern: "// STRING TO REPLACE //",
             replacement: `
@@ -425,11 +442,11 @@ class Controll_panel {
     resize: none;
     margin-top: 12px;
   }
-  .controll_panel_card_digit {
+  .controll_panel_card_digit, .controll_panel_card_bg_color {
     width: 97%;
     height: 12pt;
     resize: none;
-    margin-top: 12px;
+    margin-top: 0px;
   }
 </style>
 `;
@@ -459,6 +476,10 @@ class Controll_panel {
         if (target.digit_element) {
             this.digit_input = this.elem.getElementsByClassName("controll_panel_card_digit")[0];
             this.digit_input.value = target.digit_element.innerHTML;
+        }
+        if (target.constructor.name == "News_half_card") {
+            this.bg_color_input = this.elem.getElementsByClassName("controll_panel_card_bg_color")[0];
+            this.bg_color_input.value = target.item.style.getPropertyValue("--news-card-bg");
         }
     }
 
@@ -509,6 +530,9 @@ class Controll_panel {
         // Button change theme
         if (event.target.className == "button_change_theme") {
             window.pictest.controll_panel.target.change_theme();
+        }
+        if (event.target.className == "button_change_bg_color") {
+            window.pictest.controll_panel.target.change_bg_color();
         }
     }
 
