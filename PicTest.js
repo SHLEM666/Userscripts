@@ -5,6 +5,7 @@
 // @description  try to take over the world!
 // @author       SHLEM666
 // @match        https://yandex.ru/company
+// @match        https://yandex.ru/company/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=yandex.ru
 // @grant        none
 // @run-at       document-start
