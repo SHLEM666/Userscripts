@@ -255,6 +255,54 @@ class News_half_card extends News_card {
     }
 }
 
+class News_statistic_card extends News_card {
+
+    constructor(elem) {
+        super(elem);
+        this.digit_element = this.get_digit_element();
+    }
+
+    click_handler(event) {
+        super.click_handler(event);
+        window.pictest.news_statistic_cards.edit(this);
+    }
+
+    get_replacement_pairs() {
+        let pairs = [{
+            pattern: "// STRING TO REPLACE //",
+            replacement: ""}];
+        pairs.push({
+            pattern: `
+  <input class="insert_symbol_1" type="button" value='" "' title="Insert non-breaking space">
+`,
+            replacement: `
+  <textarea class="controll_panel_card_digit" placeholder="Feature text"></textarea><br>
+  <input class="insert_symbol_1" type="button" value='" "' title="Insert non-breaking space">
+
+`});
+        pairs.push({
+            pattern: `
+  <p>
+    <input class="button_change_theme" type="button" value="Change theme">
+  </p>`,
+            replacement: ""});
+        return pairs;
+    }
+
+    get_text_element() {
+        return this.item.getElementsByClassName("card-text__text")[0];
+    }
+
+    get_digit_element() {
+        return this.item.getElementsByClassName("card-text__digit")[0];
+    }
+
+    change_text() {
+        this.text_element.innerHTML = window.pictest.controll_panel.text_input.value;
+        this.digit_element.innerHTML = window.pictest.controll_panel.digit_input.value;
+    }
+}
+
 class Parsed_elements_container {
 
     constructor(class_obj, class_name) {
@@ -320,7 +368,7 @@ class Controll_panel {
   <input class="insert_symbol_3" type="button" value='"–"' title="Insert em dash">
   <input class="insert_symbol_4" type="button" value='"«"' title="Insert left-pointing double angle quotation mark">
   <input class="insert_symbol_5" type="button" value='"»"' title="Insert right-pointing double angle quotation mark"><br>
-  <textarea class="controll_panel_card_text" placeholder="Feature text" resi></textarea><br>
+  <textarea class="controll_panel_card_text" placeholder="Feature text"></textarea><br>
   <input class="button_change_text" type="button" value="Change text">
   <p>
     <input class="button_change_theme" type="button" value="Change theme">
@@ -363,7 +411,13 @@ class Controll_panel {
   }
   .controll_panel_card_text {
     width: 97%;
-    height: 60pt;
+    height: 70pt;
+    resize: none;
+    margin-top: 12px;
+  }
+  .controll_panel_card_digit {
+    width: 97%;
+    height: 12pt;
     resize: none;
     margin-top: 12px;
   }
@@ -392,6 +446,10 @@ class Controll_panel {
         this.elem.innerHTML = this.build_html();
         this.text_input = this.elem.getElementsByClassName("controll_panel_card_text")[0];
         this.text_input.value = target.text_element.innerHTML;
+        if (target.digit_element) {
+            this.digit_input = this.elem.getElementsByClassName("controll_panel_card_digit")[0];
+            this.digit_input.value = target.digit_element.innerHTML;
+        }
     }
 
     build_html() {
@@ -496,6 +554,7 @@ class Pictest {
         this.superblocks = new Parsed_elements_container(Superblock, "superblock-card");
         this.news_full_cards = new Parsed_elements_container(News_full_card, "news-card_full-image");
         this.news_half_cards = new Parsed_elements_container(News_half_card, "news-card_half-image");
+        this.news_statistic_cards = new Parsed_elements_container(News_statistic_card, "card-text_type_statistic");
     }
 }
 
