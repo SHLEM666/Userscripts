@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PicTest
 // @namespace    http://tampermonkey.net/
-// @version      0.27
+// @version      0.31
 // @description  try to take over the world!
 // @author       SHLEM666
 // @match        https://yandex.ru/company
@@ -446,7 +446,7 @@ class Controll_panel {
     width: 97%;
     height: 12pt;
     resize: none;
-    margin-top: 0px;
+    margin-top: 12px;
   }
 </style>
 `;
