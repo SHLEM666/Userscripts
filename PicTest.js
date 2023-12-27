@@ -260,6 +260,14 @@ class News_statistic_card extends News_card {
     constructor(elem) {
         super(elem);
         this.digit_element = this.get_digit_element();
+        this.image_element = this.item.getElementsByClassName("card-text__image")[0];
+        this.image_style_property_desktop = "--card-text-image-desktop";
+        this.image_style_property_mobile = "--card-text-image-mobile";
+        this.change_theme_clients = [
+            new Change_theme_client(this.item, "card-text_theme_white", "card-text_theme_black"),
+            new Change_theme_client(this.item.getElementsByClassName("yandex-service")[0], "yandex-service_color_white", "yandex-service_color_black"),
+            new Change_theme_client(this.item.getElementsByClassName("icon-inline_type_external-link")[0], "icon-inline_color_white", "icon-inline_color_black")
+        ];
     }
 
     click_handler(event) {
@@ -268,24 +276,24 @@ class News_statistic_card extends News_card {
     }
 
     get_replacement_pairs() {
-        let pairs = [{
-            pattern: "// STRING TO REPLACE //",
-            replacement: ""}];
+        let pairs = [];
         pairs.push({
             pattern: `
-  <input class="insert_symbol_1" type="button" value='" "' title="Insert non-breaking space">
+  <textarea class="controll_panel_card_text" placeholder="Feature text"></textarea><br>
 `,
             replacement: `
   <textarea class="controll_panel_card_digit" placeholder="Feature text"></textarea><br>
-  <input class="insert_symbol_1" type="button" value='" "' title="Insert non-breaking space">
-
+  <textarea class="controll_panel_card_text" placeholder="Feature text"></textarea><br>
 `});
         pairs.push({
-            pattern: `
-  <p>
-    <input class="button_change_theme" type="button" value="Change theme">
-  </p>`,
-            replacement: ""});
+            pattern: "// STRING TO REPLACE //",
+            replacement: `
+  <p class="file_input_lable">Desktop image<br>
+    <input class="file_input" type="file" data-style_property="` + this.image_style_property_desktop + `" multiple="false">
+  </p>
+  <p class="file_input_lable">Mobile image<br>
+    <input class="file_input" type="file" data-style_property="` + this.image_style_property_mobile + `" multiple="false">
+  </p>`});
         return pairs;
     }
 
@@ -335,10 +343,12 @@ class Change_theme_client {
     }
 
     change_theme() {
-        if (this.item.classList.contains(this.white_theme_class_name)) {
-            this.set_black_theme();
-        } else {
-            this.set_white_theme();
+        if (this.item) {
+            if (this.item.classList.contains(this.white_theme_class_name)) {
+                this.set_black_theme();
+            } else {
+                this.set_white_theme();
+            }
         }
     }
 
