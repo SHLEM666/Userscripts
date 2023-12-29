@@ -645,7 +645,7 @@ class Pictest {
         this.news_half_cards = new Parsed_elements_container(News_half_card, "news-card_half-image");
         this.news_statistic_cards = new Parsed_elements_container(News_statistic_card, "card-text_type_statistic");
         this.news_longread_cards = new Parsed_elements_container(News_longread_card, "news-card_view_longread");
-		this.video_cards = new Parsed_elements_container(Video_card, "card-video");
+        this.video_cards = new Parsed_elements_container(Video_card, "card-video");
     }
 }
 
