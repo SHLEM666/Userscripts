@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PicTest
 // @namespace    http://tampermonkey.net/
-// @version      0.32
+// @version      0.33
 // @description  try to take over the world!
 // @author       SHLEM666
 // @match        https://yandex.ru/company
@@ -244,7 +244,6 @@ class News_half_card extends News_card {
     }
 
     get_replacement_pairs() {
-        console.log(2);
         let pairs = super.get_replacement_pairs();
         pairs.push({
             pattern: `
@@ -305,7 +304,7 @@ class News_statistic_card extends News_card {
     }
 
     change_text() {
-        this.text_element.innerHTML = window.pictest.controll_panel.text_input.value;
+        super.change_text();
         this.digit_element.innerHTML = window.pictest.controll_panel.digit_input.value;
     }
 }
@@ -348,6 +347,42 @@ class News_longread_card extends News_card {
     }
 }
 
+class Video_card extends News_card {
+    constructor(elem) {
+        super(elem);
+        this.image_element = this.item;
+        this.image_style_property_desktop = "--card-text-image-desktop";
+        this.image_style_property_mobile = "--card-text-image-mobile";
+        this.change_theme_clients = [
+            new Change_theme_client(this.item, "card-video_theme_white", "card-video_theme_black"),
+            new Change_theme_client(this.item.getElementsByClassName("yandex-service")[0], "yandex-service_color_white", "yandex-service_color_black"),
+            new Change_theme_client(this.item.getElementsByClassName("icon-inline_type_external-link")[0], "icon-inline_color_white", "icon-inline_color_black")
+        ];
+    }
+
+    get_text_element() {
+        return this.item.getElementsByClassName("card-video__title")[0];
+    }
+
+    get_replacement_pairs() {
+        let pairs = [];
+        pairs.push({
+            pattern: "// STRING TO REPLACE //",
+            replacement: `
+  <p class="file_input_lable">Desktop video<br>
+    <input class="file_input" type="file" data-style_property="` + this.image_style_property_desktop + `" multiple="false">
+  </p>
+  <p class="file_input_lable">Mobile video<br>
+    <input class="file_input" type="file" data-style_property="` + this.image_style_property_mobile + `" multiple="false">
+  </p>`});
+        return pairs;
+    }
+
+    click_handler(event) {
+        super.click_handler(event);
+        window.pictest.video_cards.edit(this);
+    }
+}
 class Parsed_elements_container {
 
     constructor(class_obj, class_name) {
@@ -581,7 +616,7 @@ class Controll_panel {
             let image = document.createElement('img');
             image.src = event.target.result;
             image.onload = function() {
-                elem.style.setProperty(property, 'url("' + event.target.result + '")');
+                elem.style.setProperty(property, 'url(' + event.target.result + ')');
             };
             image.onerror = function() {
                 alert("Failed to upload " + file.name);
@@ -610,6 +645,7 @@ class Pictest {
         this.news_half_cards = new Parsed_elements_container(News_half_card, "news-card_half-image");
         this.news_statistic_cards = new Parsed_elements_container(News_statistic_card, "card-text_type_statistic");
         this.news_longread_cards = new Parsed_elements_container(News_longread_card, "news-card_view_longread");
+		this.video_cards = new Parsed_elements_container(Video_card, "card-video");
     }
 }
 
