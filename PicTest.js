@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PicTest
 // @namespace    http://tampermonkey.net/
-// @version      0.33
+// @version      0.34
 // @description  try to take over the world!
 // @author       SHLEM666
 // @match        https://yandex.ru/company
@@ -33,6 +33,10 @@ class Parced_element {
         [].forEach.call(this.change_theme_clients, function(change_theme_client) {
             change_theme_client.change_theme();
         });
+    }
+
+    change_image(data, property) {
+        this.image_element.style.setProperty(property, 'url(' + data + ')');
     }
 
     change_text() {
@@ -337,13 +341,19 @@ class News_longread_card extends News_card {
     <input class="button_change_theme" type="button" value="Change theme">
   </p>
   <textarea class="controll_panel_card_bg_color" placeholder="#color-code"></textarea><br>
-  <input class="button_change_bg_color" type="button" value="Change color"><br>
+  <input class="button_change_bg_color" type="button" value="Change color">
+  <input class="color_picker" type="color"><br>
   `});
         return pairs;
     }
 
     change_bg_color() {
         this.item.style.setProperty("--news-card-bg", window.pictest.controll_panel.bg_color_input.value);
+        window.pictest.controll_panel.color_picker.value = window.pictest.controll_panel.bg_color_input.value;
+    }
+    set_color_from_picker() {
+        window.pictest.controll_panel.bg_color_input.value = window.pictest.controll_panel.color_picker.value;
+        this.change_bg_color();
     }
 }
 
@@ -361,7 +371,7 @@ class Video_card extends News_card {
     }
 
     get_text_element() {
-        return this.item.getElementsByClassName("card-video__title")[0].children[0];
+        return this.item.getElementsByClassName("card-video__title")[0];
     }
 
     get_replacement_pairs() {
@@ -535,6 +545,8 @@ class Controll_panel {
         if (target.constructor.name == "News_longread_card") {
             this.bg_color_input = this.elem.getElementsByClassName("controll_panel_card_bg_color")[0];
             this.bg_color_input.value = target.item.style.getPropertyValue("--news-card-bg");
+            this.color_picker = this.elem.getElementsByClassName("color_picker")[0];
+            this.color_picker.value = target.item.style.getPropertyValue("--news-card-bg");
         }
     }
 
@@ -597,8 +609,12 @@ class Controll_panel {
             window.pictest.controll_panel.read_file(
                 event.target,
                 event.target.dataset.style_property,
-                window.pictest.controll_panel.target.image_element
+                window.pictest.controll_panel.target
             );
+        }
+         // Color picker
+        if (event.target.className == "color_picker") {
+            window.pictest.controll_panel.target.set_color_from_picker();
         }
     }
 
@@ -609,14 +625,14 @@ class Controll_panel {
         }
     }
 
-    read_file(input, property, elem) {
+    read_file(input, property, target) {
         let file = input.files[0];
         let reader = new FileReader();
         reader.onload = function (event) {
             let image = document.createElement('img');
             image.src = event.target.result;
             image.onload = function() {
-                elem.style.setProperty(property, 'url(' + event.target.result + ')');
+                target.change_image(event.target.result, property);
             };
             image.onerror = function() {
                 alert("Failed to upload " + file.name);
