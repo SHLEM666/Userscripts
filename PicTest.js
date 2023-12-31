@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PicTest
 // @namespace    http://tampermonkey.net/
-// @version      0.35
+// @version      0.36
 // @description  try to take over the world!
 // @author       SHLEM666
 // @match        https://yandex.ru/company
@@ -349,15 +349,15 @@ class News_longread_card extends News_card {
 
     change_bg_color() {
         this.item.style.setProperty("--news-card-bg", window.pictest.controll_panel.bg_color_input.value);
-        this.set_color_to_picker();
     }
 
     set_color_to_picker() {
         window.pictest.controll_panel.color_picker.value = window.pictest.controll_panel.bg_color_input.value;
     }
 
-    set_color_from_picker() {
-        window.pictest.controll_panel.bg_color_input.value = window.pictest.controll_panel.color_picker.value;
+    set_color_from_picker(event) {
+        window.pictest.controll_panel.bg_color_input.value = event.target.value;
+        window.pictest.controll_panel.target.change_bg_color();
     }
 }
 
@@ -456,6 +456,7 @@ class Controll_panel {
         this.elem.addEventListener("click", this.click_handler);
         this.elem.addEventListener("change", this.change_handler);
         this.elem.addEventListener("mousedown", this.mousedown_handler);
+        this.elem.addEventListener("input", this.input_handler);
         this.hide();
         this.base_html = `
 <div class="connroll_panel">
@@ -523,6 +524,7 @@ class Controll_panel {
 
     show() {
         this.elem.classList.remove("controll_panel_hidden");
+        this.shade_wrapper();
     }
 
     hide() {
@@ -534,6 +536,14 @@ class Controll_panel {
         elem.className = "controll_panel_wrapper";
         document.body.append(elem);
         return elem;
+    }
+
+    shade_wrapper() {
+        this.elem.style.backgroundColor = "rgba(0,0,0,0.5)";
+    }
+
+    unshade_wrapper() {
+        this.elem.style.backgroundColor = "rgba(0,0,0,0.0)";
     }
 
     initialze(target) {
@@ -606,6 +616,14 @@ class Controll_panel {
         if (event.target.className == "button_change_bg_color") {
             window.pictest.controll_panel.target.change_bg_color();
         }
+        // Color picker
+        if (event.target.className == "color_picker") {
+            window.pictest.controll_panel.unshade_wrapper();
+        }
+        // Connroll panel
+        if (event.target.className == "connroll_panel") {
+            window.pictest.controll_panel.shade_wrapper();
+        }
     }
 
     change_handler(event) {
@@ -619,7 +637,7 @@ class Controll_panel {
         }
          // Color picker
         if (event.target.className == "color_picker") {
-            window.pictest.controll_panel.target.set_color_from_picker();
+            window.pictest.controll_panel.shade_wrapper();
         }
          // Color code input
         if (event.target.className == "controll_panel_card_bg_color") {
@@ -631,6 +649,13 @@ class Controll_panel {
         // Wrapper
         if (event.target.className == "controll_panel_wrapper") {
             window.pictest.controll_panel.hide();
+        }
+    }
+
+    input_handler(event) {
+        // Color picker
+        if (event.target.className == "color_picker") {
+            window.pictest.controll_panel.target.set_color_from_picker(event);
         }
     }
 
