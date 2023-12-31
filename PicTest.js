@@ -9,7 +9,7 @@
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=yandex.ru
 // @grant        none
 // @run-at       document-start
-// require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/PicTest.js
+// @require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/PicTest.js
 // ==/UserScript==
 
 class Parced_element {
