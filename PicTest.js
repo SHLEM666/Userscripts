@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PicTest
 // @namespace    http://tampermonkey.net/
-// @version      0.34
+// @version      0.35
 // @description  try to take over the world!
 // @author       SHLEM666
 // @match        https://yandex.ru/company
@@ -349,8 +349,13 @@ class News_longread_card extends News_card {
 
     change_bg_color() {
         this.item.style.setProperty("--news-card-bg", window.pictest.controll_panel.bg_color_input.value);
+        this.set_color_to_picker();
+    }
+
+    set_color_to_picker() {
         window.pictest.controll_panel.color_picker.value = window.pictest.controll_panel.bg_color_input.value;
     }
+
     set_color_from_picker() {
         window.pictest.controll_panel.bg_color_input.value = window.pictest.controll_panel.color_picker.value;
     }
@@ -615,6 +620,10 @@ class Controll_panel {
          // Color picker
         if (event.target.className == "color_picker") {
             window.pictest.controll_panel.target.set_color_from_picker();
+        }
+         // Color code input
+        if (event.target.className == "controll_panel_card_bg_color") {
+            window.pictest.controll_panel.target.set_color_to_picker();
         }
     }
 
