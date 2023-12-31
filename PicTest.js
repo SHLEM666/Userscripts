@@ -9,7 +9,7 @@
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=yandex.ru
 // @grant        none
 // @run-at       document-start
-// @require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/PicTest.js
+// require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/PicTest.js
 // ==/UserScript==
 
 class Parced_element {
@@ -353,7 +353,6 @@ class News_longread_card extends News_card {
     }
     set_color_from_picker() {
         window.pictest.controll_panel.bg_color_input.value = window.pictest.controll_panel.color_picker.value;
-        this.change_bg_color();
     }
 }
 
@@ -598,6 +597,7 @@ class Controll_panel {
         if (event.target.className == "button_change_theme") {
             window.pictest.controll_panel.target.change_theme();
         }
+        // Button change color
         if (event.target.className == "button_change_bg_color") {
             window.pictest.controll_panel.target.change_bg_color();
         }
