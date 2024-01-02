@@ -375,7 +375,7 @@ class Video_card extends News_card {
     }
 
     get_text_element() {
-        return this.item.getElementsByClassName("card-video__title")[0];
+        return this.item.getElementsByClassName("card-video__title")[0].children[0];
     }
 
     get_replacement_pairs() {
