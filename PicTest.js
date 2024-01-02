@@ -9,7 +9,7 @@
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=yandex.ru
 // @grant        none
 // @run-at       document-start
-// @require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/PicTest.js
+// require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/PicTest.js
 // ==/UserScript==
 
 class Parced_element {
@@ -456,7 +456,7 @@ class Controll_panel {
         this.hide();
         this.base_html = `
 <div class="controll_panel">
-  <div class="controll_panel_header">PicTest v0.38</div>
+  <div class="controll_panel_header">PicTest v` + GM.info.script.version + `</div>
   <div class="controll_panel_content">
     <input class="insert_symbol_1" type="button" value='" "' title="Insert non-breaking space">
     <input class="insert_symbol_2" type="button" value='" &#8629; "' title="Insert new line">
