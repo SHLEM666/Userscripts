@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PicTest
 // @namespace    http://tampermonkey.net/
-// @version      0.37
+// @version      0.38
 // @description  try to take over the world!
 // @author       SHLEM666
 // @match        https://yandex.ru/company
@@ -51,9 +51,9 @@ class Parced_element {
         return [{
             pattern: "// STRING TO REPLACE //",
             replacement: `
-  <p class="file_input_lable">Image<br>
-    <input class="file_input" type="file" data-style_property="` + this.image_style_property + `" multiple="false">
-  </p>`}];
+    <p class="file_input_lable">Image<br>
+      <input class="file_input" type="file" data-style_property="` + this.image_style_property + `" multiple="false">
+    </p>`}];
     }
 }
 
@@ -131,14 +131,14 @@ class Feature extends Parced_element {
         return [{
             pattern: "// STRING TO REPLACE //",
             replacement: `
-  <p class="file_input_lable">Desktop image<br>
-    <input class="file_input" type="file" data-style_property="` + this.image_style_property_desktop + `" multiple="false">
-  </p>
-  <p class="file_input_lable">Tablet image<br>
-    <input class="file_input" type="file" data-style_property="` + this.image_style_property_tablet + `" multiple="false"></p>
-  <p class="file_input_lable">Mobile image<br>
-    <input class="file_input" type="file" data-style_property="` + this.image_style_property_mobile + `" multiple="false">
-  </p>`}];
+    <p class="file_input_lable">Desktop image<br>
+      <input class="file_input" type="file" data-style_property="` + this.image_style_property_desktop + `" multiple="false">
+    </p>
+    <p class="file_input_lable">Tablet image<br>
+      <input class="file_input" type="file" data-style_property="` + this.image_style_property_tablet + `" multiple="false"></p>
+    <p class="file_input_lable">Mobile image<br>
+      <input class="file_input" type="file" data-style_property="` + this.image_style_property_mobile + `" multiple="false">
+    </p>`}];
     }
 }
 
@@ -189,12 +189,12 @@ class Superblock extends Parced_element {
         return [{
             pattern: "// STRING TO REPLACE //",
             replacement: `
-  <p class="file_input_lable">Desktop image<br>
-    <input class="file_input" type="file" data-style_property="` + this.image_style_property_desktop + `" multiple="false">
-  </p>
-  <p class="file_input_lable">Mobile image<br>
-    <input class="file_input" type="file" data-style_property="` + this.image_style_property_mobile + `" multiple="false">
-  </p>`}];
+    <p class="file_input_lable">Desktop image<br>
+      <input class="file_input" type="file" data-style_property="` + this.image_style_property_desktop + `" multiple="false">
+    </p>
+    <p class="file_input_lable">Mobile image<br>
+      <input class="file_input" type="file" data-style_property="` + this.image_style_property_mobile + `" multiple="false">
+    </p>`}];
     }
 }
 
@@ -251,9 +251,9 @@ class News_half_card extends News_card {
         let pairs = super.get_replacement_pairs();
         pairs.push({
             pattern: `
-  <p>
-    <input class="button_change_theme" type="button" value="Change theme">
-  </p>`,
+    <p>
+      <input class="button_change_theme" type="button" value="Change theme">
+    </p>`,
             replacement: ""});
         return pairs;
     }
@@ -283,19 +283,19 @@ class News_statistic_card extends News_card {
         let pairs = [];
         pairs.push({
             pattern: `
-  <textarea class="controll_panel_card_text" placeholder="Feature text"></textarea><br>`,
+    <textarea class="controll_panel_card_text" placeholder="Feature text"></textarea><br>`,
             replacement: `
-  <textarea class="controll_panel_card_digit" placeholder="Feature text"></textarea><br>
-  <textarea class="controll_panel_card_text" placeholder="Feature text"></textarea><br>`});
+    <textarea class="controll_panel_card_digit" placeholder="Feature text"></textarea><br>
+    <textarea class="controll_panel_card_text" placeholder="Feature text"></textarea><br>`});
         pairs.push({
             pattern: "// STRING TO REPLACE //",
             replacement: `
-  <p class="file_input_lable">Desktop image<br>
-    <input class="file_input" type="file" data-style_property="` + this.image_style_property_desktop + `" multiple="false">
-  </p>
-  <p class="file_input_lable">Mobile image<br>
-    <input class="file_input" type="file" data-style_property="` + this.image_style_property_mobile + `" multiple="false">
-  </p>`});
+    <p class="file_input_lable">Desktop image<br>
+      <input class="file_input" type="file" data-style_property="` + this.image_style_property_desktop + `" multiple="false">
+    </p>
+    <p class="file_input_lable">Mobile image<br>
+      <input class="file_input" type="file" data-style_property="` + this.image_style_property_mobile + `" multiple="false">
+    </p>`});
         return pairs;
     }
 
@@ -333,16 +333,16 @@ class News_longread_card extends News_card {
         let pairs = super.get_replacement_pairs();
         pairs.push({
             pattern: `
-  <p>
-    <input class="button_change_theme" type="button" value="Change theme">
-  </p>`,
+    <p>
+      <input class="button_change_theme" type="button" value="Change theme">
+    </p>`,
             replacement: `
-  <p>
-    <input class="button_change_theme" type="button" value="Change theme">
-  </p>
-  <textarea class="controll_panel_card_bg_color" placeholder="#color-code"></textarea><br>
-  <input class="button_change_bg_color" type="button" value="Change color">
-  <input class="color_picker" type="color"><br>
+    <p>
+      <input class="button_change_theme" type="button" value="Change theme">
+    </p>
+    <textarea class="controll_panel_card_bg_color" placeholder="#color-code"></textarea><br>
+    <input class="button_change_bg_color" type="button" value="Change color">
+    <input class="color_picker" type="color"><br>
   `});
         return pairs;
     }
@@ -383,12 +383,12 @@ class Video_card extends News_card {
         pairs.push({
             pattern: "// STRING TO REPLACE //",
             replacement: `
-  <p class="file_input_lable">Desktop video<br>
-    <input class="file_input" type="file" data-style_property="` + this.image_style_property_desktop + `" multiple="false">
-  </p>
-  <p class="file_input_lable">Mobile video<br>
-    <input class="file_input" type="file" data-style_property="` + this.image_style_property_mobile + `" multiple="false">
-  </p>`});
+    <p class="file_input_lable">Desktop video<br>
+      <input class="file_input" type="file" data-style_property="` + this.image_style_property_desktop + `" multiple="false">
+    </p>
+    <p class="file_input_lable">Mobile video<br>
+      <input class="file_input" type="file" data-style_property="` + this.image_style_property_mobile + `" multiple="false">
+    </p>`});
         return pairs;
     }
 
@@ -461,18 +461,20 @@ class Controll_panel {
         this.base_html = `
 <div class="controll_panel">
   <div class="controll_panel_header"></div>
-  <input class="insert_symbol_1" type="button" value='" "' title="Insert non-breaking space">
-  <input class="insert_symbol_2" type="button" value='" &#8629; "' title="Insert new line">
-  <input class="insert_symbol_3" type="button" value='"–"' title="Insert em dash">
-  <input class="insert_symbol_4" type="button" value='"«"' title="Insert left-pointing double angle quotation mark">
-  <input class="insert_symbol_5" type="button" value='"»"' title="Insert right-pointing double angle quotation mark"><br>
-  <textarea class="controll_panel_card_text" placeholder="Feature text"></textarea><br>
-  <input class="button_change_text" type="button" value="Change text">
-  <p>
-    <input class="button_change_theme" type="button" value="Change theme">
-  </p>
-  // STRING TO REPLACE //
-  <input class="button_cancle" type="button" value="Close"><br>
+  <div class="controll_panel_content">
+    <input class="insert_symbol_1" type="button" value='" "' title="Insert non-breaking space">
+    <input class="insert_symbol_2" type="button" value='" &#8629; "' title="Insert new line">
+    <input class="insert_symbol_3" type="button" value='"–"' title="Insert em dash">
+    <input class="insert_symbol_4" type="button" value='"«"' title="Insert left-pointing double angle quotation mark">
+    <input class="insert_symbol_5" type="button" value='"»"' title="Insert right-pointing double angle quotation mark"><br>
+    <textarea class="controll_panel_card_text" placeholder="Feature text"></textarea><br>
+    <input class="button_change_text" type="button" value="Change text">
+    <p>
+      <input class="button_change_theme" type="button" value="Change theme">
+    </p>
+    // STRING TO REPLACE //
+    <input class="button_cancle" type="button" value="Close"><br>
+  </div>
 </div>
 <style>
   .controll_panel_wrapper {
@@ -485,19 +487,12 @@ class Controll_panel {
     z-index: 20;
     text-align: center;
   }
-  .controll_panel_wrapper:after {
-    height: 100%;
-    display: inline-block;
-    vertical-align: middle;
-    content: "";
-  }
   .controll_panel {
-    position: fixed;
+    position: absolute;
     background-color: white;
     text-align: left;
-    padding: 1em;
+    overflow: hidden;
     max-width: 98%;
-    max-height: 100%;
     display: inline-block;
     vertical-align: middle;
     border-radius: 0em;
@@ -506,12 +501,14 @@ class Controll_panel {
     filter: progid:DXImageTransform.Microsoft.shadow(direction=180, color=#000000, strength=10);
   }
   .controll_panel_header {
-    width: calc(100% + 1em);
-    margin: -1em 0em 0.5em -1em;
+    width: calc(100% - 1em);
     padding: 0.5em;
     cursor: move;
     z-index: 10;
     background-color: lightgray;
+  }
+  .controll_panel_content {
+    padding: 0.5em 1em 1em 1em;
   }
   .controll_panel_hidden {
     display: none;
@@ -560,7 +557,7 @@ class Controll_panel {
         this.show();
         this.target = target;
         this.elem.innerHTML = this.build_html();
-        this.controll_panel = document.getElementsByClassName("controll_panel")[0];
+        this.controll_panel_body = document.getElementsByClassName("controll_panel")[0];
         this.text_input = this.elem.getElementsByClassName("controll_panel_card_text")[0];
         this.text_input.value = target.text_element.innerHTML;
         if (target.digit_element) {
@@ -573,7 +570,19 @@ class Controll_panel {
             this.color_picker = this.elem.getElementsByClassName("color_picker")[0];
             this.color_picker.value = target.item.style.getPropertyValue("--news-card-bg");
         }
+        this.set_start_position();
         dragElement(this);
+    }
+
+    set_start_position() {
+        if (!this.hasOwnProperty("x_pos")) {
+            let wrapper_width = Number(window.getComputedStyle(this.elem).width.split("px")[0]);
+            let controll_panel_width = Number(window.getComputedStyle(this.controll_panel_body).width.split("px")[0]);
+            let wrapper_height = Number(window.getComputedStyle(this.elem).height.split("px")[0]);
+            let controll_panel_height = Number(window.getComputedStyle(this.controll_panel_body).height.split("px")[0]);
+            this.x_pos = (wrapper_width / 2) - (controll_panel_width / 2);
+            this.y_pos = (wrapper_height / 2) - (controll_panel_height / 2);
+        }
     }
 
     build_html() {
@@ -693,49 +702,6 @@ class Controll_panel {
     }
 }
 
-function dragElement(obj) {
-	let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-	let elmnt = document.getElementsByClassName("controll_panel")[0];
-	let header = document.getElementsByClassName("controll_panel_header")[0];
-	header.onmousedown = dragMouseDown;
-	if (obj.hasOwnProperty("x_pos")) {
-		elmnt.style.top = obj.x_pos + "px";
-		elmnt.style.left = obj.y_pos + "px";
-	}
-
-	function dragMouseDown(e) {
-		e = e || window.event;
-		e.preventDefault();
-		// get the mouse cursor position at startup:
-		pos3 = e.clientX;
-		pos4 = e.clientY;
-		document.onmouseup = closeDragElement;
-		// call a function whenever the cursor moves:
-		document.onmousemove = elementDrag;
-	}
-
-	function elementDrag(e) {
-		e = e || window.event;
-		e.preventDefault();
-		// calculate the new cursor position:
-		pos1 = pos3 - e.clientX;
-		pos2 = pos4 - e.clientY;
-		pos3 = e.clientX;
-		pos4 = e.clientY;
-		// set the element's new position:
-		elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-		elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-		obj.x_pos = (elmnt.offsetTop - pos2);
-		obj.y_pos = (elmnt.offsetLeft - pos1);
-	}
-
-	function closeDragElement() {
-		// stop moving when mouse button is released:
-		document.onmouseup = null;
-		document.onmousemove = null;
-	}
-}
-
 class Pictest {
 
     constructor() {
@@ -776,3 +742,49 @@ class Pictest {
        window.scroll(0, 0);
     }
 })();
+
+// =======================================================================================
+// =================================== Thirdparty code ===================================
+// =======================================================================================
+
+function dragElement(obj) {
+	let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+	let elmnt = document.getElementsByClassName("controll_panel")[0];
+	let header = document.getElementsByClassName("controll_panel_header")[0];
+	header.onmousedown = dragMouseDown;
+    elmnt.style.top = obj.y_pos + "px";
+    elmnt.style.left = obj.x_pos + "px";
+
+	function dragMouseDown(e) {
+		e = e || window.event;
+		e.preventDefault();
+		// get the mouse cursor position at startup:
+		pos3 = e.clientX;
+		pos4 = e.clientY;
+		document.onmouseup = closeDragElement;
+		// call a function whenever the cursor moves:
+		document.onmousemove = elementDrag;
+	}
+
+	function elementDrag(e) {
+		e = e || window.event;
+		e.preventDefault();
+		// calculate the new cursor position:
+		pos1 = pos3 - e.clientX;
+		pos2 = pos4 - e.clientY;
+		pos3 = e.clientX;
+		pos4 = e.clientY;
+		// set the element's new position:
+		elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+		elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+		obj.x_pos = (elmnt.offsetLeft - pos1);
+		obj.y_pos = (elmnt.offsetTop - pos2);
+
+	}
+
+	function closeDragElement() {
+		// stop moving when mouse button is released:
+		document.onmouseup = null;
+		document.onmousemove = null;
+	}
+}
