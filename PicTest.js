@@ -460,7 +460,7 @@ class Controll_panel {
         this.hide();
         this.base_html = `
 <div class="controll_panel">
-  <div class="controll_panel_header"></div>
+  <div class="controll_panel_header">PicTest v0.38</div>
   <div class="controll_panel_content">
     <input class="insert_symbol_1" type="button" value='" "' title="Insert non-breaking space">
     <input class="insert_symbol_2" type="button" value='" &#8629; "' title="Insert new line">
@@ -485,27 +485,21 @@ class Controll_panel {
     top: 0px;
     bottom: 0px;
     z-index: 20;
-    text-align: center;
   }
   .controll_panel {
     position: absolute;
     background-color: white;
     text-align: left;
-    overflow: hidden;
-    max-width: 98%;
-    display: inline-block;
-    vertical-align: middle;
     border-radius: 0em;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
     filter: progid:DXImageTransform.Microsoft.shadow(direction=180, color=#000000, strength=10);
   }
   .controll_panel_header {
-    width: calc(100% - 1em);
-    padding: 0.5em;
+    padding: 0em 0.5em 0em 0.5em;
+    font-size: 0.7em;
     cursor: move;
-    z-index: 10;
-    background-color: lightgray;
+    background-color: lightgray;;
   }
   .controll_panel_content {
     padding: 0.5em 1em 1em 1em;
