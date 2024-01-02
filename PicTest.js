@@ -251,9 +251,8 @@ class News_half_card extends News_card {
         let pairs = super.get_replacement_pairs();
         pairs.push({
             pattern: `
-    <p>
-      <input class="button_change_theme" type="button" value="Change theme">
-    </p>`,
+    <input class="button_change_theme" type="button" value="Change theme">
+    `,
             replacement: ""});
         return pairs;
     }
@@ -333,13 +332,10 @@ class News_longread_card extends News_card {
         let pairs = super.get_replacement_pairs();
         pairs.push({
             pattern: `
-    <p>
-      <input class="button_change_theme" type="button" value="Change theme">
-    </p>`,
+    <input class="button_change_theme" type="button" value="Change theme">
+    `,
             replacement: `
-    <p>
-      <input class="button_change_theme" type="button" value="Change theme">
-    </p>
+    <input class="button_change_theme" type="button" value="Change theme"><br><br>
     <textarea class="controll_panel_card_bg_color" placeholder="#color-code"></textarea><br>
     <input class="button_change_bg_color" type="button" value="Change color">
     <input class="color_picker" type="color"><br>
@@ -469,11 +465,8 @@ class Controll_panel {
     <input class="insert_symbol_5" type="button" value='"»"' title="Insert right-pointing double angle quotation mark"><br>
     <textarea class="controll_panel_card_text" placeholder="Feature text"></textarea><br>
     <input class="button_change_text" type="button" value="Change text">
-    <p>
-      <input class="button_change_theme" type="button" value="Change theme">
-    </p>
+    <input class="button_change_theme" type="button" value="Change theme">
     // STRING TO REPLACE //
-    <input class="button_cancle" type="button" value="Close"><br>
   </div>
 </div>
 <style>
@@ -496,13 +489,13 @@ class Controll_panel {
     filter: progid:DXImageTransform.Microsoft.shadow(direction=180, color=#000000, strength=10);
   }
   .controll_panel_header {
-    padding: 0em 0.5em 0em 0.5em;
+    padding: 0em 0em 0em 0.5em;
     font-size: 0.7em;
     cursor: move;
     background-color: lightgray;;
   }
   .controll_panel_content {
-    padding: 0.5em 1em 1em 1em;
+    padding: 0.5em 1em 0em 1em;
   }
   .controll_panel_hidden {
     display: none;
@@ -513,11 +506,16 @@ class Controll_panel {
     resize: none;
     margin-top: 12px;
   }
-  .controll_panel_card_digit, .controll_panel_card_bg_color {
+  .controll_panel_card_digit {
     width: 97%;
     height: 12pt;
     resize: none;
     margin-top: 12px;
+  }
+  .controll_panel_card_bg_color {
+    width: 97%;
+    height: 12pt;
+    resize: none;
   }
 </style>
 `;
@@ -614,10 +612,6 @@ class Controll_panel {
          // Button insert symbol 5
         if (event.target.className == "insert_symbol_5") {
             window.pictest.controll_panel.insert_symbol("»");
-        }
-        // Button Cancle
-        if (event.target.className == "button_cancle") {
-            window.pictest.controll_panel.hide();
         }
         // Button change text
         if (event.target.className == "button_change_text") {
