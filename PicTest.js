@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PicTest
 // @namespace    http://tampermonkey.net/
-// @version      0.36
+// @version      0.37
 // @description  try to take over the world!
 // @author       SHLEM666
 // @match        https://yandex.ru/company
@@ -459,7 +459,8 @@ class Controll_panel {
         this.elem.addEventListener("input", this.input_handler);
         this.hide();
         this.base_html = `
-<div class="connroll_panel">
+<div class="controll_panel">
+  <div class="controll_panel_header"></div>
   <input class="insert_symbol_1" type="button" value='" "' title="Insert non-breaking space">
   <input class="insert_symbol_2" type="button" value='" &#8629; "' title="Insert new line">
   <input class="insert_symbol_3" type="button" value='"–"' title="Insert em dash">
@@ -490,7 +491,8 @@ class Controll_panel {
     vertical-align: middle;
     content: "";
   }
-  .connroll_panel {
+  .controll_panel {
+    position: fixed;
     background-color: white;
     text-align: left;
     padding: 1em;
@@ -502,6 +504,14 @@ class Controll_panel {
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
     filter: progid:DXImageTransform.Microsoft.shadow(direction=180, color=#000000, strength=10);
+  }
+  .controll_panel_header {
+    width: calc(100% + 1em);
+    margin: -1em 0em 0.5em -1em;
+    padding: 0.5em;
+    cursor: move;
+    z-index: 10;
+    background-color: lightgray;
   }
   .controll_panel_hidden {
     display: none;
@@ -550,6 +560,7 @@ class Controll_panel {
         this.show();
         this.target = target;
         this.elem.innerHTML = this.build_html();
+        this.controll_panel = document.getElementsByClassName("controll_panel")[0];
         this.text_input = this.elem.getElementsByClassName("controll_panel_card_text")[0];
         this.text_input.value = target.text_element.innerHTML;
         if (target.digit_element) {
@@ -562,6 +573,7 @@ class Controll_panel {
             this.color_picker = this.elem.getElementsByClassName("color_picker")[0];
             this.color_picker.value = target.item.style.getPropertyValue("--news-card-bg");
         }
+        dragElement(this);
     }
 
     build_html() {
@@ -621,7 +633,7 @@ class Controll_panel {
             window.pictest.controll_panel.unshade_wrapper();
         }
         // Connroll panel
-        if (event.target.className == "connroll_panel") {
+        if (event.target.className == "controll_panel") {
             window.pictest.controll_panel.shade_wrapper();
         }
     }
@@ -650,6 +662,9 @@ class Controll_panel {
         if (event.target.className == "controll_panel_wrapper") {
             window.pictest.controll_panel.hide();
         }
+        // Controll panel
+        if (event.target.className == "controll_panel") {
+        }
     }
 
     input_handler(event) {
@@ -676,6 +691,49 @@ class Controll_panel {
             reader.readAsDataURL(file);
         }
     }
+}
+
+function dragElement(obj) {
+	let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+	let elmnt = document.getElementsByClassName("controll_panel")[0];
+	let header = document.getElementsByClassName("controll_panel_header")[0];
+	header.onmousedown = dragMouseDown;
+	if (obj.hasOwnProperty("x_pos")) {
+		elmnt.style.top = obj.x_pos + "px";
+		elmnt.style.left = obj.y_pos + "px";
+	}
+
+	function dragMouseDown(e) {
+		e = e || window.event;
+		e.preventDefault();
+		// get the mouse cursor position at startup:
+		pos3 = e.clientX;
+		pos4 = e.clientY;
+		document.onmouseup = closeDragElement;
+		// call a function whenever the cursor moves:
+		document.onmousemove = elementDrag;
+	}
+
+	function elementDrag(e) {
+		e = e || window.event;
+		e.preventDefault();
+		// calculate the new cursor position:
+		pos1 = pos3 - e.clientX;
+		pos2 = pos4 - e.clientY;
+		pos3 = e.clientX;
+		pos4 = e.clientY;
+		// set the element's new position:
+		elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+		elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+		obj.x_pos = (elmnt.offsetTop - pos2);
+		obj.y_pos = (elmnt.offsetLeft - pos1);
+	}
+
+	function closeDragElement() {
+		// stop moving when mouse button is released:
+		document.onmouseup = null;
+		document.onmousemove = null;
+	}
 }
 
 class Pictest {
