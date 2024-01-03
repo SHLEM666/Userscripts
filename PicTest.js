@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PicTest
 // @namespace    http://tampermonkey.net/
-// @version      0.38
+// @version      0.39
 // @description  try to take over the world!
 // @author       SHLEM666
 // @match        https://yandex.ru/company
@@ -360,7 +360,6 @@ class News_longread_card extends News_card {
 class Video_card extends News_card {
     constructor(elem) {
         super(elem);
-        this.image_element = this.item;
         this.image_style_property_desktop = "--card-text-image-desktop";
         this.image_style_property_mobile = "--card-text-image-mobile";
         this.change_theme_clients = [
@@ -368,6 +367,30 @@ class Video_card extends News_card {
             new Change_theme_client(this.item.getElementsByClassName("yandex-service")[0], "yandex-service_color_white", "yandex-service_color_black"),
             new Change_theme_client(this.item.getElementsByClassName("icon-inline_type_external-link")[0], "icon-inline_color_white", "icon-inline_color_black")
         ];
+    }
+
+    create_image_element() {
+        let elem = document.createElement("div");
+        elem.className = "card-text__image card-text__image card-text__image_loaded";
+        this.item.prepend(elem);
+        return elem;
+    }
+
+    change_image(data, property) {
+        if (!this.image_element) {
+            this.change_class_name();
+            this.remove_video_element();
+            this.image_element = this.create_image_element();
+        }
+        this.image_element.style.setProperty(property, 'url(' + data + ')');
+    }
+
+    change_class_name() {
+        this.item.className += " card-text";
+    }
+
+    remove_video_element() {
+        this.item.getElementsByClassName("card-video__video")[0].remove();
     }
 
     get_text_element() {
@@ -379,10 +402,10 @@ class Video_card extends News_card {
         pairs.push({
             pattern: "// STRING TO REPLACE //",
             replacement: `
-    <p class="file_input_lable">Desktop video<br>
+    <p class="file_input_lable">Desktop image<br>
       <input class="file_input" type="file" data-style_property="` + this.image_style_property_desktop + `" multiple="false">
     </p>
-    <p class="file_input_lable">Mobile video<br>
+    <p class="file_input_lable">Mobile image<br>
       <input class="file_input" type="file" data-style_property="` + this.image_style_property_mobile + `" multiple="false">
     </p>`});
         return pairs;
