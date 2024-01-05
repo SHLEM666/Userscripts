@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PicTest
 // @namespace    http://tampermonkey.net/
-// @version      0.39
+// @version      0.40
 // @description  try to take over the world!
 // @author       SHLEM666
 // @match        https://yandex.ru/company
@@ -44,7 +44,7 @@ class Parced_element {
     }
 
     edit() {
-        window.pictest.controll_panel.initialze(this);
+        window.pictest.controll_panel.initialize(this);
     }
 
     get_replacement_pairs() {
@@ -97,7 +97,7 @@ class Feature extends Parced_element {
         this.change_theme_clients = [
             new Change_theme_client(this.item, "feature_theme_white", "feature_theme_black")
         ];
-        this.text_element = this.item.getElementsByClassName("feature__title")[0];
+        this.text_element = this.item.getElementsByClassName("feature__title")[0].children[0];
         this.image_element = this.item;
         this.image_style_property_desktop = "--feature-image-desktop";
         this.image_style_property_tablet = "--feature-image-tablet";
@@ -476,6 +476,7 @@ class Controll_panel {
         this.elem.addEventListener("change", this.change_handler);
         this.elem.addEventListener("mousedown", this.mousedown_handler);
         this.elem.addEventListener("input", this.input_handler);
+        this.elem.addEventListener("focusin", this.focusin_handler);
         this.hide();
         this.base_html = `
 <div class="controll_panel">
@@ -515,7 +516,7 @@ class Controll_panel {
     padding: 0em 0em 0em 0.5em;
     font-size: 0.7em;
     cursor: move;
-    background-color: lightgray;;
+    background-color: #E3E3E3;
   }
   .controll_panel_content {
     padding: 0.5em 1em 0em 1em;
@@ -568,9 +569,10 @@ class Controll_panel {
         this.elem.style.backgroundColor = "rgba(0,0,0,0.0)";
     }
 
-    initialze(target) {
+    initialize(target) {
         this.show();
         this.target = target;
+        this.last_focused_input = undefined;
         this.elem.innerHTML = this.build_html();
         this.controll_panel_body = document.getElementsByClassName("controll_panel")[0];
         this.text_input = this.elem.getElementsByClassName("controll_panel_card_text")[0];
@@ -610,9 +612,15 @@ class Controll_panel {
     }
 
     insert_symbol(symbol) {
-        let str = this.text_input.value;
-        let index = this.text_input.selectionStart;
-        this.text_input.value = str.slice(0, index) + symbol + str.slice(index);
+        let input = window.pictest.controll_panel.last_focused_input;
+        if (input) {
+            let str = input.value;
+            let index = input.selectionStart;
+            input.value = str.slice(0, index) + symbol + str.slice(index);
+            setTimeout(()=>{
+                input.selectionStart = index + symbol.length;
+            }, 1);
+        }
     }
 
     click_handler(event) {
@@ -692,6 +700,17 @@ class Controll_panel {
         if (event.target.className == "color_picker") {
             window.pictest.controll_panel.target.set_color_from_picker(event);
         }
+    }
+
+    focusin_handler(event) {
+        // Text input or Digit input
+        if (
+            event.target.className == "controll_panel_card_text" ||
+            event.target.className == "controll_panel_card_digit"
+        ) {
+            window.pictest.controll_panel.last_focused_input = event.target;
+        }
+
     }
 
     read_file(input, property, target) {
