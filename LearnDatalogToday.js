@@ -19,11 +19,11 @@
     style.innerHTML += '.row {margin-bottom: 1em; margin-left: unset;}';
 
     // Изменение полей
-    style.innerHTML += '.span8 {width:320px; margin-left: unset;}';
-    style.innerHTML += '.container {margin-left: 5%; width: unset;}';
+    style.innerHTML += '.span8 {width:' + (window.screen.width - 30) + 'px; margin-left: unset;}';
+    style.innerHTML += '.container {margin-left: 15px; width: unset;}';
 
     document.body.appendChild(style);
-    
+
     // Запрет зума
     var meta = document.createElement('meta');
     meta.name = "viewport";
