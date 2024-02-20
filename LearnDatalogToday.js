@@ -15,12 +15,10 @@
 
     var style = document.createElement('style');
 
-    // Изменения отступов
-    style.innerHTML += '.row {margin-bottom: 1em; margin-left: unset;}';
-
     // Изменение полей
     style.innerHTML += '.span8 {width:' + (window.screen.width - 30) + 'px; margin-left: unset;}';
     style.innerHTML += '.container {margin-left: 15px; width: unset;}';
+    style.innerHTML += '.row {margin-left: unset;}';
 
     document.body.appendChild(style);
 
