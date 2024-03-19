@@ -20,6 +20,13 @@
     style.innerHTML += '.container {margin-left: 15px; width: unset;}';
     style.innerHTML += '.row {margin-left: unset;}';
 
+    // Прокрутка в блоках кода
+    style.innerHTML += '.textcontent pre {overflow-x: scroll;}';
+    style.innerHTML += '.textcontent pre code {white-space: pre;}';
+
+    // Переносы кода в тексте
+    style.innerHTML += '.textcontent p code {white-space: normal;}';
+
     document.body.appendChild(style);
 
     // Запрет зума
