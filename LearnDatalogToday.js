@@ -16,7 +16,7 @@
     var style = document.createElement('style');
 
     // Изменение полей
-    style.innerHTML += '.span8 {width:' + (window.screen.width - 30) + 'px; margin-left: unset;}';
+    style.innerHTML += '.span8 {width:' + (window.screen.width - 30) + 'px; margin-left: unset; overflow: scroll;}';
     style.innerHTML += '.container {margin-left: 15px; width: unset;}';
     style.innerHTML += '.row {margin-left: unset;}';
 
