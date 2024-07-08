@@ -7,6 +7,7 @@
 // @match        http://127.0.0.1:8888/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=jupyter.org
 // @grant        none
+// @run-at       document-idle
 // @require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/JupyterNotebook.js
 // ==/UserScript==
 
@@ -41,26 +42,13 @@
             // Скрыть статус
             elem1.innerHTML += ".jp-NotebookTrustedStatus {display: none;}";
 
-            window.onload = function() {
-                setTimeout(()=>{
-                    document.body.appendChild(elem1);
-                }, 500);
-            }
+            document.body.appendChild(elem1);
 
             // Отключение контекстного меню при выделении текста
-            function loop() {
-                setTimeout(function() {
-                    if (document) {
-                        document.addEventListener('contextmenu', (e) => {
-                            e.stopImmediatePropagation();
-                            e.stopPropagation();
-                        }, true);
-                    } else {
-                        loop();
-                    }
-                }, 1000);
-            };
-            loop();
+            document.addEventListener('contextmenu', (e) => {
+                e.stopImmediatePropagation();
+                e.stopPropagation();
+            }, true);
 
         } catch (err) {
 
