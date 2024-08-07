@@ -15,11 +15,10 @@
 
     var style = document.createElement('style');
 
-    style.innerHTML += '.bar__content .progress__bar.progress__progress {height: 50px;}';
+    // Увеличить высоту прогресс-бара
     style.innerHTML += '.bar__content .progress_branding .progress__bg {height: 50px;}';
     style.innerHTML += '.bar__content .progress_branding .progress__bar {height: 50px;}';
 
-    style.innerHTML += '.bar__content:hover .progress__bar.progress__progress {height: 50px;}';
     style.innerHTML += '.bar__content:hover .progress_branding .progress__bg {height: 50px;}';
     style.innerHTML += '.bar__content:hover .progress_branding .progress__bar {height: 50px;}';
 
