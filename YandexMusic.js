@@ -4,7 +4,7 @@
 // @version      2024-08-07
 // @description  try to take over the world!
 // @author       You
-// @match        https://music.yandex.ru/users/SHLEM666/playlists/*
+// @match        *music.yandex.ru*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=yandex.ru
 // @grant        none
 // @require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/YandexMusic.js
