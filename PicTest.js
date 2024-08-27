@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PicTest
 // @namespace    http://tampermonkey.net/
-// @version      0.41
+// @version      0.42
 // @description  try to take over the world!
 // @author       SHLEM666
 // @match        https://yandex.ru/company
@@ -154,13 +154,21 @@ class Product extends Parced_element {
         ];
         this.text_element = this.item.getElementsByClassName("product-card__title")[0];
         this.image_element = this.item.getElementsByClassName("card-showcase__img")[0];
-        this.image_style_property = "--product-image";
+        this.image_style_property_product = "--product-image";
+        this.image_style_property_horizontal = "--horizontal-image";
+        this.image_style_property_vertical = "--vertical-image";
         this.set_onclick();
     }
 
     click_handler(event) {
         super.click_handler(event);
         window.pictest.products.edit(this);
+    }
+
+    change_image(data, property) {
+        super.change_image(data, this.image_style_property_product);
+        super.change_image(data, this.image_style_property_horizontal);
+        super.change_image(data, this.image_style_property_vertical);
     }
 }
 
