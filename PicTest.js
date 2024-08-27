@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PicTest
 // @namespace    http://tampermonkey.net/
-// @version      0.40
+// @version      0.41
 // @description  try to take over the world!
 // @author       SHLEM666
 // @match        https://yandex.ru/company
