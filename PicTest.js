@@ -148,12 +148,12 @@ class Product extends Parced_element {
         super();
         this.item = elem;
         this.change_theme_clients = [
-            new Change_theme_client(this.item, "product-card_theme_white", "product-card_theme_black"),
+            new Change_theme_client(this.item, "card-showcase_theme_white", "card-showcase_theme_black"),
             new Change_theme_client(this.item.getElementsByClassName("yandex-service")[0], "yandex-service_color_white", "yandex-service_color_black"),
             new Change_theme_client(this.item.getElementsByClassName("icon-inline_type_external-link")[0], "icon-inline_color_white", "icon-inline_color_black")
         ];
         this.text_element = this.item.getElementsByClassName("product-card__title")[0];
-        this.image_element = this.item.getElementsByClassName("product-card__img")[0];
+        this.image_element = this.item.getElementsByClassName("card-showcase__img")[0];
         this.image_style_property = "--product-image";
         this.set_onclick();
     }
@@ -743,7 +743,7 @@ class Pictest {
     }
 
     refresh() {
-        this.products = new Parsed_elements_container(Product, "product-card");
+        this.products = new Parsed_elements_container(Product, "card-showcase");
         this.superblocks = new Parsed_elements_container(Superblock, "superblock-card");
         this.news_full_cards = new Parsed_elements_container(News_full_card, "news-card_full-image");
         this.news_half_cards = new Parsed_elements_container(News_half_card, "news-card_half-image");
