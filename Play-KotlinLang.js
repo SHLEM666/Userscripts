@@ -16,25 +16,23 @@
 
     var elem1 = document.createElement("style");
 
-    // Добавить правый отступ в поле ввода кода
     // Add right margin to code input area
     elem1.innerHTML += ".CodeMirror-scroll {margin-right: 0px;}";
 
-    // Добавить правый отступ в поле вывода
     // Add right margin to output area
-    elem1.innerHTML += ".standard-output.darcula {margin-right: 15px;}";
+    elem1.innerHTML += ".standard-output.darcula {margin-right: 75px;}";
 
-    // Удаление панели меню
+    // Modify closing console button
+    elem1.innerHTML += ".console-close.darcula {bottom: 15px; opacity: 0.5;}";
+
     // Hide menu panel
     elem1.innerHTML += ".ktl-header-module_header-menu_wh71L.header {display: none;}";
 
-    // Модификация кнопки закрытия консоли
-    // Modify closing console button
-    elem1.innerHTML += ".console-close.darcula {margin-top: -58px; opacity: 0.2;}";
-
-    // Удаление кнопки помои
     // Hide help button
     elem1.innerHTML += ".playground__help-wrapper {display: none;}";
+
+    // Hide Ctrl-F9 tooltip
+    elem1.innerHTML += "._tooltip_1i6sxxd_4 {display: none;}";
 
     document.body.appendChild(elem1);
 
