@@ -15,6 +15,9 @@
 
     var style = document.createElement('style');
 
+    // Фикс недоступности последнего элемента списка воспроизведения
+    style.innerHTML += '.sidebar__section+.sidebar__section {margin-bottom: 30px;}';
+
     // Увеличить высоту прогресс-бара
     style.innerHTML += '.bar__content .progress_branding .progress__bg {height: 50px;}';
     style.innerHTML += '.bar__content .progress_branding .progress__bar {height: 50px;}';
