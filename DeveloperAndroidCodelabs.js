@@ -62,7 +62,7 @@
             var style = document.createElement('style');
 
             // Внешний вид кнопки
-            style.innerHTML += '.my_button {background-color:#0000004d; border-radius:100%; bottom: 3px; right: 14px; position: fixed; height:50px; width:50px; font: initial; font-size: 32pt; text-align: center; color: white;}';
+            style.innerHTML += '.my_button {background-color:#0000004d; border-radius:100%; bottom: 3px; right: 14px; position: fixed; height:50px; width:50px; font: initial; font-size: 32pt; text-align: center; color: white; cursor: default;}';
 
             document.body.appendChild(style);
         })();
