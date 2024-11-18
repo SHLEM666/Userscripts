@@ -16,7 +16,7 @@
     var style = document.createElement('style');
 
     // Спрятать мини обложку
-    style.innerHTML += '.entity-cover__image.deco-pane {display: none;}';
+    style.innerHTML += '.track_type_player .entity-cover__image.deco-pane {display: none;}';
 
     // Фикс недоступности последнего элемента списка воспроизведения
     style.innerHTML += '.sidebar__section+.sidebar__section {margin-bottom: 30px;}';
