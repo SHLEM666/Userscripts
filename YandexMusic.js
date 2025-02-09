@@ -16,19 +16,7 @@
     var style = document.createElement('style');
 
     // Спрятать мини обложку
-    style.innerHTML += '.track_type_player .entity-cover__image.deco-pane {display: none;}';
-
-    // Фикс недоступности последнего элемента списка воспроизведения
-    style.innerHTML += '.sidebar__section+.sidebar__section {margin-bottom: 30px;}';
-
-    // Увеличить высоту прогресс-бара
-    style.innerHTML += '.bar__content .progress_branding .progress__bg {height: 50px;}';
-    style.innerHTML += '.bar__content .progress_branding .progress__bar {height: 50px;}';
-
-    style.innerHTML += '.bar__content:hover .progress_branding .progress__bg {height: 50px;}';
-    style.innerHTML += '.bar__content:hover .progress_branding .progress__bar {height: 50px;}';
-
-    style.innerHTML += '.player-progress.progress.deco-progress.progress_branding {height: 50px;}';
+    style.innerHTML += '.PlayerBarDesktop_cover__IYLwR {display: none;}';
 
     document.body.appendChild(style);
 
