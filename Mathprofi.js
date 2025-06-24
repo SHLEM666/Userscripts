@@ -73,7 +73,7 @@
         var style = document.createElement('style');
 
         // Внешний вид кнопки
-        style.innerHTML += '.my_button {background-color:#0000004d; border-radius:100%; top: 30px; right: 30px; position: fixed; height:100px; width:100px; font-size: 65pt; text-align: center; color: white;}';
+        style.innerHTML += '.my_button {background-color:#0000004d; border-radius:100%; top: 30px; right: 30px; position: fixed; height:100px; width:100px; font-size: 65pt; text-align: center; color: white; user-select: none;}';
 
         // Размеры контейнеров меню
         style.innerHTML += '#bar, #bar1 {height: auto; width: 100%;}';
