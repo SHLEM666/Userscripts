@@ -7,15 +7,38 @@
 // @match        https://deepwiki.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=deepwiki.com
 // @grant        none
-// require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/DeepWiki.js
+// @require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/DeepWiki.js
 // ==/UserScript==
 
-(function() {
+(function foo() {
     'use strict';
 
-    function foo() {
+    var form = document.getElementsByTagName("form")[0];
+    var ul = document.getElementsByTagName("ul")[0];
+    var cw = document.getElementById("codebase-wiki-repo-page");
 
-        var chat_panel = document.getElementsByTagName("form")[0].parentElement.parentElement
+    if (form && ul && cw) {
+
+        var chat_panel = form.parentElement.parentElement;
+        var top_panel = cw.children[0];
+        var left_menu = ul.parentElement.parentElement;
+        var right_menu = ul.parentElement.parentElement.parentElement.children[2].children[0];
+
+        chat_panel.style.display = "none";
+
+        top_panel.style.display = "none";
+        top_panel.style.paddingTop = "0px";
+        top_panel.style.paddingBottom = "0px";
+
+        left_menu.style.top = "0px";
+        left_menu.onclick = function(){
+            setTimeout(()=>{
+                window.location.reload();
+            }, 100);
+        };
+
+        right_menu.children[0].style.display = "none";
+        right_menu.parentElement.style.top = "0px";
 
         // Создаем кнопку меню
         (function add_my_button() {
@@ -29,17 +52,22 @@
 
             document.body.appendChild(my_button);
 
-            console.log(my_button);
-
             function toggle_view() {
+                console.log(chat_panel.style.display);
 
-                if (chat_panel.style.display == "") {
+                if (chat_panel.style.display == "" || chat_panel.style.display == '') {
 
                     chat_panel.style.display = "none";
+                    top_panel.style.display = "none";
+                    left_menu.style.top = "0px";
+                    right_menu.parentElement.style.top = "0px";
 
                 } else {
 
                     chat_panel.style.display = "";
+                    top_panel.style.display = "";
+                    left_menu.style.top = "35px";
+                    right_menu.parentElement.style.top = "60px";
                 };
             };
         })();
@@ -50,18 +78,14 @@
             var style = document.createElement('style');
 
             // Внешний вид кнопки
-            style.innerHTML += '.my_button {background-color:#0000004d; border-radius:100%; bottom: 3px; right: 14px; position: fixed; height:50px; width:50px; font: initial; font-size: 32pt; text-align: center; color: white; cursor: pointer;}';
-            // Скрываем надоедливую всплывающую подсказку "Next"
-            style.innerHTML += '.devsite-tooltip-msg {display: none;}';
+            style.innerHTML += '.my_button {background-color:#0000004d; border-radius:100%; bottom: 3px; right: 3px; position: fixed; height:50px; width:50px; font: initial; font-size: 32pt; text-align: center; color: white; cursor: pointer; user-select: none;}';
 
             document.body.appendChild(style);
         })();
-    }
 
-    window.onload = function() {
+    } else {
         setTimeout(()=>{
             foo();
         }, 100);
     }
-
 })();
