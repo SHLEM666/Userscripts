@@ -1,0 +1,67 @@
+// ==UserScript==
+// @name         DeepWiki
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  try to take over the world!
+// @author       SHLEM666
+// @match        https://deepwiki.com/*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=deepwiki.com
+// @grant        none
+// require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/DeepWiki.js
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    function foo() {
+
+        var chat_panel = document.getElementsByTagName("form")[0].parentElement.parentElement
+
+        // Создаем кнопку меню
+        (function add_my_button() {
+
+            var my_button = document.createElement('div');
+
+            my_button.className = 'my_button';
+            my_button.onclick = toggle_view;
+
+            my_button.innerHTML += '≡';
+
+            document.body.appendChild(my_button);
+
+            console.log(my_button);
+
+            function toggle_view() {
+
+                if (chat_panel.style.display == "") {
+
+                    chat_panel.style.display = "none";
+
+                } else {
+
+                    chat_panel.style.display = "";
+                };
+            };
+        })();
+
+        // Создаем стили
+        (function add_style() {
+
+            var style = document.createElement('style');
+
+            // Внешний вид кнопки
+            style.innerHTML += '.my_button {background-color:#0000004d; border-radius:100%; bottom: 3px; right: 14px; position: fixed; height:50px; width:50px; font: initial; font-size: 32pt; text-align: center; color: white; cursor: pointer;}';
+            // Скрываем надоедливую всплывающую подсказку "Next"
+            style.innerHTML += '.devsite-tooltip-msg {display: none;}';
+
+            document.body.appendChild(style);
+        })();
+    }
+
+    window.onload = function() {
+        setTimeout(()=>{
+            foo();
+        }, 100);
+    }
+
+})();
