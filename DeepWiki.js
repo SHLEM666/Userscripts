@@ -7,38 +7,45 @@
 // @match        https://deepwiki.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=deepwiki.com
 // @grant        none
-// @require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/DeepWiki.js
+// require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/DeepWiki.js
 // ==/UserScript==
 
 (function foo() {
     'use strict';
 
-    var form = document.getElementsByTagName("form")[0];
     var ul = document.getElementsByTagName("ul")[0];
     var cw = document.getElementById("codebase-wiki-repo-page");
 
-    if (form && ul && cw) {
+    if (ul && cw) {
 
-        var chat_panel = form.parentElement.parentElement;
+        var chat_panel;
+        init_chat_panel();
         var top_panel = cw.children[0];
         var left_menu = ul.parentElement.parentElement;
         var right_menu = ul.parentElement.parentElement.parentElement.children[2].children[0];
 
         chat_panel.style.display = "none";
-
         top_panel.style.display = "none";
         top_panel.style.paddingTop = "0px";
         top_panel.style.paddingBottom = "0px";
-
         left_menu.style.top = "0px";
-        left_menu.onclick = function(){
+        left_menu.style.height = "calc(100vh)";
+        right_menu.children[0].style.display = "none";
+        right_menu.parentElement.style.top = "0px";
+        right_menu.parentElement.style.height = "calc(100vh)";
+
+        document.body.onclick = function() {
             setTimeout(()=>{
-                window.location.reload();
+                init_chat_panel();
+                if (top_panel.style.display != chat_panel.style.display) {
+                    window.location.reload();
+                };
             }, 100);
         };
 
-        right_menu.children[0].style.display = "none";
-        right_menu.parentElement.style.top = "0px";
+        function init_chat_panel() {
+            chat_panel = document.getElementsByTagName("form")[0].parentElement.parentElement;
+        };
 
         // Создаем кнопку меню
         (function add_my_button() {
@@ -53,17 +60,13 @@
             document.body.appendChild(my_button);
 
             function toggle_view() {
-                console.log(chat_panel.style.display);
-
                 if (chat_panel.style.display == "" || chat_panel.style.display == '') {
-
                     chat_panel.style.display = "none";
                     top_panel.style.display = "none";
                     left_menu.style.top = "0px";
                     right_menu.parentElement.style.top = "0px";
 
                 } else {
-
                     chat_panel.style.display = "";
                     top_panel.style.display = "";
                     left_menu.style.top = "35px";
