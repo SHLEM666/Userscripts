@@ -7,7 +7,7 @@
 // @match        https://deepwiki.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=deepwiki.com
 // @grant        none
-// require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/DeepWiki.js
+// @require      https://raw.githubusercontent.com/SHLEM666/Userscripts/main/DeepWiki.js
 // ==/UserScript==
 
 (function foo() {
@@ -16,13 +16,16 @@
     var ul = document.getElementsByTagName("ul")[0];
     var cw = document.getElementById("codebase-wiki-repo-page");
 
+    function get_chat_panel() {
+        return document.getElementsByTagName("form")[0].parentElement.parentElement;
+    };
+
     if (ul && cw) {
 
-        var chat_panel;
-        init_chat_panel();
         var top_panel = cw.children[0];
         var left_menu = ul.parentElement.parentElement;
         var right_menu = ul.parentElement.parentElement.parentElement.children[2].children[0];
+        var chat_panel = get_chat_panel();
 
         chat_panel.style.display = "none";
         top_panel.style.display = "none";
@@ -36,15 +39,11 @@
 
         document.body.onclick = function() {
             setTimeout(()=>{
-                init_chat_panel();
+                chat_panel = get_chat_panel();
                 if (top_panel.style.display != chat_panel.style.display) {
                     window.location.reload();
                 };
             }, 100);
-        };
-
-        function init_chat_panel() {
-            chat_panel = document.getElementsByTagName("form")[0].parentElement.parentElement;
         };
 
         // Создаем кнопку меню
