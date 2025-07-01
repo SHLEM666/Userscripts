@@ -79,7 +79,7 @@
                 right_content.style.top = "0px";
                 pb.style.paddingBottom = "0px";
                 pb.children[0].style.paddingTop = "0px";
-            }, 500);
+            }, 700);
 
             function actions() {
                 if (chat_panel.style.display == "" || chat_panel.style.display == '') {
