@@ -78,7 +78,7 @@ class Main_feed_button extends Parced_element {
 
     constructor() {
         super();
-        this.item = document.getElementsByClassName("main-feed__button")[0];
+        this.item = document.getElementsByClassName("header__button-nav")[0];
         this.set_onclick();
     }
 
