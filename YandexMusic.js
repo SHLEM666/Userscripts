@@ -16,7 +16,8 @@
     var style = document.createElement('style');
 
     // Спрятать мини обложку
-    style.innerHTML += '.PlayerBarDesktop_cover__IYLwR {display: none;}';
+    //style.innerHTML += '.PlayerBarDesktop_cover__IYLwR {display: none;}';
+    style.innerHTML += '.PlayerBarDesktopWithBackgroundProgressBar_coverContainer__dkNCG {display: none;}';
 
     document.body.appendChild(style);
 
